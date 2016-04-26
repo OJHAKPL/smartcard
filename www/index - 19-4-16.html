@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Smartcard Global</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+		<script src="cordova.js"></script>
+		<script src="js/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/jquery.validate.min.js"></script>	
+		<script src="js/common.js"></script>
+		 <link rel="stylesheet" href="css/swiper.min.css">
+		 
+
+    <!-- Demo styles -->
+    <style>
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    </style>
+		 
+	</head>
+	
+	<body>
+	
+	
+		<div data-role="page" class="jqm-demos jqm-home" id="index" data-url="index">
+			<div role="main" class="ui-content jqm-content">			
+				<div class="home-logo"><img src="images/logo.png" alt="" /></div>
+				<div data-role="navbar" class="home-buttons">
+					<ul>
+						<li><a href="#login" data-transition="slide" id="bg_for" style="background:#27457b; color:#fff;">Login</a></li>
+						<li><a href="#register" data-transition="slide" id="bg_for" style="background:#27457b; color:#fff;">Register</a></li>
+					</ul>
+				</div>
+			</div><!-- /content -->
+		</div><!-- /page -->		
+		
+		<div data-role="page" class="jqm-demos jqm-home jqm-login" id="login" data-url="login">
+			<div role="main" class="ui-content jqm-content">
+				<div class="home-logo"><img src="images/logo.png" alt="" /></div>
+				<div class="loderimages loader_login"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="login-form">
+					<input type="text" name="text-basic" placeholder="Email ID" id="login-email" value="">
+					<input type="password" name="text-basic" placeholder="Password" id="login-password" value="">
+					<div class="forgot-link"><a href="#forgot-password">Forgot password?</a></div>
+					<div class="keeps-checkbox">
+						<input type="checkbox" name="keep_me_login" id="keep_me_login" value="" checked="">
+                        <label for="keep_me_login">Keep me signed in</label>
+					</div>
+					<button onClick="homeLogin()" class="ui-btn ui-btn-submit ui-corner-all">Login</button>
+					<div class="other-link">Don't have account? <a href="#register" data-direction="reverse" data-transition="slide">Click here</a></div>
+				</div>
+			</div><!-- /content -->
+		</div><!-- /page -->		
+		
+		<div data-role="page" class="jqm-demos jqm-home jqm-login" id="forgot-password" data-url="forgot-password">
+			<div role="main" class="ui-content jqm-content">
+				<div class="home-logo"><img src="images/logo.png" alt=""/></div>
+				<div class="loderimages loader_forgotpass"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+				<div class="login-form">
+					<input type="text" name="text-basic" placeholder="Email ID" id="forgot-email" value=""/>
+					<button id="forgot-email-button" onClick="forgotPassword();" class="ui-btn ui-btn-submit ui-corner-all">Forgot Password</button>
+					<div class="other-link">Don't have account? <a href="#login" data-direction="reverse" data-transition="slide">Click here</a></div>
+				</div>
+			</div><!-- /content -->
+		</div><!-- /page -->
+ 		
+		<div data-role="page" class="jqm-demos jqm-home jqm-login" id="register" data-url="register">
+			<div role="main" class="ui-content jqm-content">
+				<div class="home-logo"><img src="images/logo.png" alt="" /></div>
+				<div class="login-form register-form">
+					<div class="loderimages loader_registeradd"><img src="images/loader-page.gif"><p>Loading...</p></div>
+					<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+					<form id="register_form">
+						<input type="text" name="email" placeholder="Email ID" id="email" value="">
+						<input type="password" name="password" placeholder="Password" id="password" value="">
+						<input type="text"  data-validation="number" name="phone" placeholder="Phone" id="phone" value="">
+						<div class="keeps-checkbox">
+							<input type="checkbox" name="terms_conditions" id="terms_conditions" checked="">
+							<label for="terms_conditions">Terms & Conditions</label>
+						</div>
+						<button type="submit" class="ui-btn ui-btn-submit ui-corner-all">Register</button>
+					</form>
+					<div class="other-link">Already have account? <a href="#login" data-direction="reverse" data-transition="slide">Click here</a></div>
+				</div>
+			</div><!-- /content -->
+		</div><!-- /page --> 
+		
+		
+		
+		
+		
+ 		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-list" data-url="card-list">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Smartcard Global</h1>
+				<div class="horizental-nav">
+					<ul> 
+						<li><a href="#tab1" class="ui-btn-active">Home</a></li>
+						<li><a href="#tab2">Cards</a></li>
+						<li><a href="#tab3">Profile</a></li>
+					</ul>
+				</div>			
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content" style="padding-top:83px;">  
+				
+				<div class="contand-for">
+				  <!-- Swiper -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Slide 1</div>
+							<div class="swiper-slide">Slide 2</div>
+							<div class="swiper-slide">Slide 3</div>
+							<div class="swiper-slide">Slide 4</div>
+							<div class="swiper-slide">Slide 5</div>
+							<div class="swiper-slide">Slide 6</div>
+							<div class="swiper-slide">Slide 7</div>
+							<div class="swiper-slide">Slide 8</div>
+							<div class="swiper-slide">Slide 9</div>
+							<div class="swiper-slide">Slide 10</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<!-- Add Arrows -->
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
+					</div>
+				</div> 
+				
+				<div class="loderimages loader_cardlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+			</div><!-- /content -->  
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->  
+		
+		
+		 	
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-list" id="shared-card-list" data-url="shared-card-list">        
+        	
+			<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+				<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">view profile</h1>
+            </div><!-- /header -->
+			
+			
+			<div class="padding-space">
+			
+			
+			<div class="home-logo" id="margion-none"><img alt="" src="images/rounded.png"></div>
+			
+			<div class="login-form">
+					<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" value="" id="login-email" placeholder="First Name" name="text-basic"></div>
+					<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" value="" id="login-password" placeholder="Last Name" name="text-basic"></div>
+					<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" value="" id="login-password" placeholder="Email" name="text-basic"></div>
+					<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" value="" id="login-password" placeholder="Phone" name="text-basic"></div>
+					<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="password" value="" id="login-password" placeholder="password" name="text-basic"></div>
+					<div class="forgot-link"></div>
+					<div class="keeps-checkbox">
+						
+                        
+					</div>
+					<button class="ui-btn-submit ui-btn ui-corner-all" onClick="homeLogin()">Save</button>
+					
+					<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()" id="bg-chang-for">Dashboard</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false" id="bg-chang-for">My Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false" id="bg-chang-for">Share</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false" id="bg-chang-for">My Folders</a></li>
+                    <li><a href="#change-password" data-ajax="false" id="bg-chang-for">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false" id="bg-chang-for">Logout</a></li>
+				</ul>
+			</div>
+				</div></div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+			<!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			
+		</div><!-- /page -->
+		
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-notification" id="notification" data-url="notification">        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+                	<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">Notifications</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content"> 
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				<div class="loderimages loader_notifactionlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+				<ul class="notification-list margintoten">
+                </ul>                
+			</div><!-- /content -->
+            
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+                <div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+            </div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<!---------- Favorite List ----------->
+		
+		
+		
+ 		<div data-role="page" class="jqm-demos jqm-page jqm-list" id="shared-card-list" data-url="favorite-list">        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+               <!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">My Favorite</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content"> 
+			
+			<div class="contand-for"></div>
+				
+				<div class="dashboard-link" id="right-align" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/edit.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/view.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/backword.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/forward.png" alt=""></span></a>
+					
+				</div>
+				
+				<!--<div class="loderimages favoritelistloader"><img src="images/ajax-loader-list.gif"></div>-->
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+                <div class="favoritelistHtml cards-list" style="margin-top: 10px;">	
+					
+				</div>                
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Folders</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		
+		<!---------- Change Password ----------->
+		<div data-role="page" class="jqm-demos jqm-home jqm-page jqm-login" id="change-password" data-url="change-password">
+		
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+                	<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">Change Password</h1>
+            </div><!-- /header -->
+		
+			<div role="main" class="ui-content jqm-content">
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				
+				<div class="loderimages loader_changepass"><img src="images/loader-page.gif"><p>Loading...</p></div>
+			
+				<div class="changepassword-form margintoten">
+					<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+					<form id="changepassword_form">
+						<input type="password" name="current_password" placeholder="Current Password" id="current_password" value="">
+						<input type="password" name="new_password" placeholder="New Password" id="new_password" value="">
+						<input type="password" name="password_confirmation" placeholder="Confirm Password" id="password_confirmation" value="">
+						<button type="submit" class="ui-btn ui-btn-submit ui-corner-all">Change Password</button>
+					</form>
+					<div class="rewards-line"><a href="">Get Rewards, Just Refer Your Friends</a></div>
+				</div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-details" data-url="card-details">
+        	
+			<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Card Detail</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+				</div>
+				
+				<div class="loderimages loader_carddetails"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<div class="card-link-details margintoten"></div>
+				<div class="card-icons"></div>
+				<div class="card-link-details3"></div>
+				
+				<div data-role="popup" id="shareCarddetails" data-theme="a" class="ui-corner-all">
+					<form>
+						<div style="padding:10px 20px;">
+							<p class="errorMsgShow-2" style="text-align:center; display:none;"></p> 
+							<h3>Please enter email id </h3>
+							<label for="un" class="ui-hidden-accessible">Username:</label>
+							<input name="share-email" id="share-email" value="" placeholder="Email" data-theme="a" type="text">
+							<button type="button" onClick="shareEmailCheck()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Share</button>
+						</div>
+					</form>
+				</div> 
+			</div><!-- /content -->
+            
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+			
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div> 
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="my-profile" data-url="my-profile">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">My Profile</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">   
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				
+				<div class="loderimages loader_userupdate"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<div class="ProfileUpdate margintoten"></div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="update-profile" data-url="update-profile">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Edit Profile</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				<div class="loderimages loader_useredit"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="EditProfileHtml margintoten">
+				</div>
+			</div><!-- /content -->   
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+ 
+
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="update-card" data-url="update-card">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Update Card</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">  
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				<div class="loderimages loader_cardupdate"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="updateCard margintoten"></div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page --> 
+		
+
+		<div data-role="page" class="jqm-demos jqm-page jqm-ticked" id="selected-cards" data-url="selected-cards">
+        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+                	<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">Selected Cards</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+                <div class="loderimages loader_cardselectlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+                <ul class="ticked-list margintoten">
+				</ul>                
+			</div><!-- /content -->
+			
+			
+			<div data-role="popup" id="shareCarddetails2" data-theme="a" class="ui-corner-all">
+				<form>
+					<div style="padding:10px 20px;">
+						<p class="errorMsgShow-2" style="text-align:center; display:none;"></p> 
+						<h3>Please enter email id </h3>
+						<label for="un" class="ui-hidden-accessible">Username:</label>
+						<input name="share-email2" id="share-email2" value="" placeholder="Email" data-theme="a" type="text">
+						<button type="button" onClick="shareEmailCheckMultiple()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Share</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-role="popup" id="movetofolder" data-theme="a" class="ui-corner-all">
+				<form>
+					<div style="padding:10px 20px;">
+						<p class="errorMsgShow-2" style="text-align:center; display:none;"></p> 
+						<h3>Please select folder</h3>
+						<div class="loderimages loader_movefolderlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+						<div class="movetoHtml"></div> 						
+						<button type="button" onClick="moveTofoldersave()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Move</button>
+					</div>
+				</form>
+			</div>
+			
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+            	<button class="sharecardImgdev" onClick="moveTocard()">Move to</button>
+				<div class="or-text">or</div>            	
+            </div><!-- /footer -->
+
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-dashboard" id="my-folder-share" data-url="my-folder-share">
+			
+			<div data-role="header" class="jqm-header">                
+				<div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+				<h1 class="title">My Folders /Shared Cards</h1>
+			</div><!-- /header -->
+			
+			<div role="main" class="ui-content jqm-content">
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>				 
+				<div class="folder-list">
+					<h3 class="title" style="cursor: pointer;" onClick="cardbasiclist()">My Cards</h3>
+					<h3 class="title" style="cursor: pointer;" onClick="sharedcardlist()">Shared Cards</h3>
+					<h3 class="title" style="cursor: pointer;" onClick="favoritelist()">My Favorites</h3>
+					<h3 class="title">My Folders</h3>
+					<ul class="folder-list-wrapper folder_list">
+					</ul>
+				</div>
+			</div><!-- /content --> 
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-list" id="share-my-card" data-url="share-my-card">
+        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+                	<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">Share My Card</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content"> 
+				<!--<div class="loderimages cardlistloader"><img src="images/ajax-loader-list.gif"></div>-->
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+                <div class="cards-list cardslistHtml">		
+					
+				</div>                
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->	
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-link" data-url="card-link">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Links</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">  
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				<div class="loderimages loader_cardlinklist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="updateCardLink margintoten"></div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page --> 
+		
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-list" id="basic-card-list" data-url="basic-card-list">
+        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">My Cards</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content"> 
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+			
+				<div class="loderimages loader_basiccardlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+                <div class="cards-list basiccardslistHtml" style="margin-top:10px;">		
+					<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+				</div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-dashboard" id="my-folderlist" data-url="my-folderlist">
+			
+			<div data-role="header" class="jqm-header">                
+				<div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<!--<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+				<h1 class="title">My Folders</h1>
+			</div><!-- /header -->
+			
+			<div role="main" class="ui-content jqm-content">
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>  
+				<!--<div class="loderimages myfolderloader"><img src="images/ajax-loader-list.gif"></div>-->
+				<div class="loderimages loader_folderlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>				 
+				<div class="folder-list">
+                    
+				    <h3 class="title" style="cursor: pointer;" onClick="cardbasiclist()">My Cards</h3>
+					<h3 class="title" style="cursor: pointer;" onClick="sharedcardlist()">Shared Cards</h3>
+					<h3 class="title">My Folders <button class="add-btn"><span class="icon"></span> Add New</button></h3>
+					<div class="add-folder" style="display:none;">
+						<button id="folder_save" class="ui-btn ui-btn-submit ui-corner-all">Save</button>
+						<input type="text" name="folder_name" placeholder="Type folder name" id="folder_name" value=""/>
+					</div>
+					
+					<h3 class="title">My Folder List</h3>
+					<ul class="folder-list-wrapper folder_listadd">
+					</ul>
+				</div>
+			</div><!-- /content --> 
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-list" id="card-list-empty" data-url="card-list-empty">
+        
+        	<div data-role="header" class="jqm-header">                
+                <div class="left-icon">
+                	<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+                </div>
+                <div class="right-icon">
+                	<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+                	<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+                </div>
+                <h1 class="title">My Cards</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content"> 
+			
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div> 
+				
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+                <div class="cards-list cardslistemptyHtml margintoten"></div>                
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-scroller" data-url="card-scroller">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<!--<a href="javascript:void(0);" onclick="selectcardShow()" class="tick-button"><img src="images/tick-icon.png" alt=""> <span class="counter counter-cardtick">0</span></a>-->
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Text Scroll</h1>
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">  
+				<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+					
+				</div>
+				<div class="loderimages loader_cardscroller"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="updateCardScroller margintoten"></div>
+			</div><!-- /content -->  
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+
+ 		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-list-loader" data-url="card-list-loader">        
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+					<!--<a href="javascript:void(0);" onClick="notificationList()" class="bell-button"><img src="images/bell-icon.png" alt=""> <span class="counter counter-notify counter-notify-2">0</span></a>-->
+				</div>
+				<div class="right-icon">
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Smartcard Global</h1>
+				<div  class="horizental-nav">
+						
+					<ul> 
+					<li><a href="#tab1" class="ui-btn-active">Home</a></li>
+					<li><a href="#tab2">Cards</a></li>
+					<li><a href="#tab3">Profile</a></li>
+					</ul>
+					</div>
+					
+									
+            </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content">  
+				
+				<div class="contand-for">
+				
+				</div>
+				
+				
+				<!--<div class="dashboard-link" style="border-bottom:0px;">
+					<a class="ui-link" href="javascript:void(0);" onClick="cardlist()"><span class="img"><img class="responsimg" src="images/dashboard.png" alt=""></span></a>
+					<a class="ui-link" href="javascript:void(0);" onClick="viewProfile()"><span class="img"><img class="responsimg" src="images/profile-icon.png" alt=""></span></a>				
+					<a class="ui-link" href="javascript:void(0);" onClick="selectcardShow()"><span class="img"><img class="responsimg" src="images/share.png" alt=""></span> </a>
+					<a class="ui-link" href="javascript:void(0);" onClick="myfolderList()"><span class="img"><img class="responsimg" src="images/my-folder.png" alt=""></span></a>
+				</div> -->
+				
+				<!--<div data-role="tabs" id="tabs">
+					<div data-role="navbar" class="horizental-nav">
+						
+					<ul> 
+					<li><a href="#tab1" class="ui-btn-active">Home</a></li>
+					<li><a href="#tab2">Card</a></li>
+					<li><a href="#tab3">Profile</a></li>
+					</ul>
+					</div>
+					
+				  <div id="tab1">
+					<p>This is the content of the tab 'One', with the id fragment-1.</p>
+					</div>
+				  <div id="tab2">
+					<p>This is the content of the tab 'Two', with the id fragment-2.</p>
+				  </div>
+				  <div id="tab3">
+					<p>This is the content of the tab 'Three', with the id fragment-3.</p>
+				  </div>
+				</div>
+				-->
+				
+				<div class="loderimages loader_cardlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+			</div><!-- /content -->  
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="selectcardShow()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->  
+		
+    <!-- Swiper JS -->
+    <script src="js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        keyboardControl: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    });
+    </script>		
+		
+		
+		
+		<script src="js/index.js"></script>
+</body>
+</html>
