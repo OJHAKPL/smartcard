@@ -1304,7 +1304,7 @@
 
 	function onDeviceReadyCard() {
 	    pictureSourceCard   = navigator.camera.PictureSourceType;
-	    destinationTypeCard = navigator.camera.DestinationTypeCard;
+	    destinationTypeCard = navigator.camera.DestinationType;
 	}
 
 	function clearCache() {
@@ -1363,14 +1363,15 @@
 
 	function wincard(r){
 		/*------------ Images upload -----------*/
-	    //alert(r.response);
-	    //alert(r.responseCode);
-	    //alert(r.bytesSent);
-	    //alert("image uploaded scuccesfuly");
+	   alert(r.response);
+	   alert(r.responseCode);
+	   alert(r.bytesSent);
+	   alert("image uploaded scuccesfuly");
 	}
 
 	function failcard(error){
-	   //alert("An error has occurred: Code = " = error.code);
+		
+	   alert("An error has occurred: Code = " +error.code);
 	}
 	
 	
