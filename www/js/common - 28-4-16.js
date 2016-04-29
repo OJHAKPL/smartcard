@@ -1,5 +1,5 @@
-	//window.webservice_url = "http://192.168.1.16/projects/laravel/smartcard/admin/";
-	window.webservice_url = "https://www.smartcardglobal.com/admin/admin/";
+	window.webservice_url = "http://192.168.1.16/projects/laravel/smartcard/admin/";
+	//window.webservice_url = "https://www.smartcardglobal.com/admin/admin/";
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
@@ -1251,130 +1251,46 @@
 				dataType: 'html'
 			});
 		}
-	}  
+	} 
+	
 	
 	/*---------- Delete Paper Card ---------*/
 	function deletePapercard(paper_card_id) {
 		
-		confirmBox = confirm('Are you sure you want to delete this row');
-		if(confirmBox==true) {
-			$(".paper_card_dev_"+paper_card_id).remove();
-			$.ajax({
-				type: 'POST',
-				url: webservice_url+'web-paper-card-remove',
-				beforeSend: function(){
-					$('.loader_papercard').show();
-				},
-				complete: function(){
-					$('.loader_papercard').hide();
-				},
-				data: { "paper_card_id": paper_card_id },
-				success: function(papercardlist){
-					var papercardlistArr = jQuery.parseJSON(papercardlist);
-					if(!papercardlistArr.error) {
-						$(".errorMsgShow").show();
-						$(".errorMsgShow").removeClass("error");
-						$(".errorMsgShow").addClass("success");
-						$(".errorMsgShow").text(papercardlistArr.success);
-						setTimeout(function() {
-							$('.errorMsgShow').hide();
-						}, 4000);
-					} else {
-						$(".errorMsgShow").show();
-						$(".errorMsgShow").removeClass("success");
-						$(".errorMsgShow").addClass("error");
-						$(".errorMsgShow").text(papercardlistArr.error);
-						setTimeout(function() {
-							$('.errorMsgShow').hide();
-						}, 4000);
-					}
-				},
-				dataType: 'html'
-			});
-		}
+		$(".paper_card_dev_"+paper_card_id).remove();
+		
+		$.ajax({
+			type: 'POST',
+			url: webservice_url+'web-paper-card-list',
+			beforeSend: function(){
+				$('.loader_papercard').show();
+			},
+			complete: function(){
+				$('.loader_papercard').hide();
+			},
+			data: { "user_id": user_id },
+			success: function(papercardlist){
+				
+				var papercardlistArr = jQuery.parseJSON(papercardlist);
+				if(!papercardlistArr.error) {
+					$('.papercardHtml').html(papercardlistArr.success);
+				} else {
+					$(".errorMsgShow").show();
+					$(".errorMsgShow").removeClass("success");
+					$(".errorMsgShow").addClass("error");
+					$(".errorMsgShow").text(papercardlistArr.error);
+					setTimeout(function() {
+						$('.errorMsgShow').hide();
+					}, 4000);
+				}
+			},
+			dataType: 'html'
+		});
+		
+ 
+		
+		
 	}
-	
-	
-	/*-------------- Add, Upload Paper Card --------------*/
-	
-	var pictureSourceCard;   // picture source
-	var destinationTypeCard; // sets the format of returned value
-
-	document.addEventListener("deviceready", onDeviceReadyCard, false);
-
-	function onDeviceReadyCard() {
-	    pictureSourceCard   = navigator.camera.PictureSourceType;
-	    destinationTypeCard = navigator.camera.DestinationTypeCard;
-	}
-
-	function clearCache() {
-	    navigator.camera.cleanup();
-	} 
-
-
-	var sPicDataCard; //store image data for image upload functionality
-
-	function cardcapturePhoto(){
-	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
-	                                quality: 20,
-	                                destinationTypeCard: destinationTypeCard.FILE_URI,
-	                                sourceType: pictureSourceCard.CAMERA,
-	                                correctOrientation: true
-	                                });
-	}
-
-	function cardgetPhoto(){
-	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
-	        quality: 20,
-	        destinationTypeCard: destinationTypeCard.FILE_URI,
-	        sourceType: pictureSourceCard.SAVEDPHOTOALBUM,
-	        correctOrientation: true
-	    });
-	}
-
-	function picOnSuccessCard(imageData){
-
-	    var image = document.getElementById('cameraPic');
-	    image.src = imageData;
-	    sPicDataCard  = imageData; //store image data in a variable
-		userId = $('#user_id').val();
-		photoUploadCard(userId);
-	}
-
-	function picOnFailureCard(message){
-	    //alert('Failed because: ' + message);
-	}
-
-	// ----- upload image ------------
-	function photoUploadCard(userId) {
-	    var options = new FileUploadOptions();
-	    options.fileKey = "file";
-	    options.fileName = sPicDataCard.substr(sPicDataCard.lastIndexOf('/') + 1);
-	    options.mimeType = "image/jpeg";
-	    options.chunkedMode = false;
-
-	    var params = new Object();
-	    params.fileKey = "file";
-	    options.params = {}; // eig = params, if we need to send parameters to the server request
-	    ft = new FileTransfer();
-	    ft.upload(sPicDataCard, webservice_url+"add-paper-card/"+userId, wincard, failcard, options);
-	}
-	
-
-	function wincard(r){
-		/*------------ Images upload -----------*/
-	    //alert(r.response);
-	    //alert(r.responseCode);
-	    //alert(r.bytesSent);
-	    //alert("image uploaded scuccesfuly");
-	}
-
-	function failcard(error){
-	   //alert("An error has occurred: Code = " = error.code);
-	}
-	
-	
-	
 	
 	
 	

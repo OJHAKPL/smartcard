@@ -1354,3 +1354,18 @@ img.responsimg {
 .outline-none {
 	outline: medium none;
 }
+
+.button-move-folder {
+    background: #27457b none repeat scroll 0 0 !important; 
+    color: #fff !important;
+    font-size: 12px !important;
+    height: 27px;
+    margin-left: 24%;
+    padding: 0;
+    text-align: center;
+    width: 50% !important;
+}
+
+.add-paper-card {
+	padding:10px;
+}

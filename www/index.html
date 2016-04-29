@@ -254,6 +254,21 @@
 				<div class="loderimages loader_basiccardlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
 				<div class="basiccardslistHtml"></div> 
 			</div> 
+			
+			<div data-role="popup" id="movetofolder" data-theme="a" class="ui-corner-all">
+				<form id="move_folder">
+					<div class="login-form">				
+						<div style="padding:10px 20px;">
+							<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
+							<h3>Please select folder</h3>
+							<div class="loderimages loader_movefolderlist"><img src="images/loader-page.gif"><p>Loading...</p></div>
+							<div class="movetoHtml"></div> 						
+							<button onClick="moveTofoldersave()" type="button" class="ui-btn-submit ui-btn ui-corner-all button-move-folder">Move</button>
+						</div>
+					</div>	
+				</form>
+			</div>
+			
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
 				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
@@ -394,7 +409,7 @@
 		</div> 
 		
 		
-		<!----------- Basic Card List ------------>
+		<!----------- Card templates List ------------>
 		
  		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-templates-list" data-url="card-templates-list">        
 			
@@ -589,6 +604,60 @@
 			</div>
 			
 		</div><!-- /page -->
+		
+		
+		
+		<!----------- paper cards List ------------>
+		
+ 		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="paper-card-list" data-url="paper-card-list">        
+			
+			<div data-role="header" class="jqm-header">                
+               <div class="left-icon">
+					<a href="javascript:void(0);" onClick="onBackKeyDown()" class="back-button"><img src="images/back-icon.png" alt=""></a>
+				</div>
+				<div class="right-icon">
+					<a href="javascript:void(0);" onClick="navigationOpen()" class="jqm-navmenu-link1 menu-button ui-link"><img src="images/menu-icon.png" alt=""></a>
+				</div>
+                <h1 class="title">Paper Cards</h1>
+				<div class="horizental-nav">
+					<ul id="horizental_nav">
+						<li><a class="card-list-page" onClick="cardlist()" href="javascript:;">Home</a></li>
+						<li><a class="my-folderlist-page" onClick="myfolderList()" href="javascript:;">Cards</a></li>
+						<li><a class="view-profile-page" onClick="viewProfile()" href="javascript:;">Profile</a></li>
+						
+					</ul>
+				</div>			
+            </div><!-- /header -->
+
+			<div role="main" class="no-padding">  
+				<div class="contand-for"></div>
+				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
+				<div class="loderimages loader_papercard"><img src="images/loader-page.gif"><p>Loading...</p></div>
+				<div class="add-paper-card">
+					<b class="title">Add Paper Card</b>
+					<div id="camera" style="height: 60px;">
+						<button class="camera-control ui-btn ui-shadow ui-corner-all" type="button" onclick="cardcapturePhoto();" style="width: 50%; float: left;">Camera</button>
+						<button class="camera-control ui-btn ui-shadow ui-corner-all" type="button" onclick="cardgetPhoto();" style="width: 50%; float: right;">Gallery</button>
+					</div>
+				</div>
+				<div class="papercardHtml"></div>
+			</div> 
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+				<div class="rewards-line"><a href="javascript:void(0);" onClick="window.open('https://www.smartcardglobal.cards/nd2no/ordermy','_system');" >Get a SmartCard</a></div>
+			</div><!-- /footer -->
+            
+			<div data-role="panel" class="menu-new main-menu jqm-navmenu-panel" data-position="right" data-display="overlay">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                    <li><a href="javascript:void(0);" onClick="cardlist()" data-ajax="false">Home</a></li>
+                    <li><a href="javascript:void(0);" rel="external" onClick="viewProfile()" data-ajax="false">Profile</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Search Cards</a></li>
+                    <li><a href="javascript:void(0);" onClick="myfolderList()" data-ajax="false">Cards</a></li>
+                    <li><a href="#change-password" data-ajax="false">Change Password</a></li> 
+                    <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
+				</ul>
+			</div>
+		</div><!-- /page -->  
 		
 		
 		
