@@ -1,5 +1,5 @@
 	//window.webservice_url = "http://192.168.1.16/projects/laravel/smartcard/admin/";
-	window.webservice_url = "https://www.smartcardglobal.com/admin/admin/";
+	window.webservice_url = "https://www.smartcardglobal.com/admin/";
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
@@ -276,6 +276,8 @@
 	}
 	
 	
+	/*-------- User Upload Images -----------*/
+	
 	var pictureSource;   // picture source
 	var destinationType; // sets the format of returned value
 
@@ -321,7 +323,7 @@
 	}
 
 	function picOnFailure(message){
-	    //alert('Failed because: ' + message);
+	    alert('User Failed because: ' + message);
 	}
 
 	// ----- upload image ------------
@@ -342,14 +344,14 @@
 
 	function win(r){
 		/*------------ Images upload -----------*/
-	    //alert(r.response);
-	    //alert(r.responseCode);
-	    //alert(r.bytesSent);
-	    //alert("image uploaded scuccesfuly");
+	    alert(r.response);
+	    alert(r.responseCode);
+	    alert(r.bytesSent);
+	    alert("User image uploaded scuccesfuly");
 	}
 
 	function fail(error){
-	   //alert("An error has occurred: Code = " = error.code);
+	   alert("An error has occurred: Code = "+ error.code);
 	}
 	
 	
@@ -1334,7 +1336,7 @@
 
 	function picOnSuccessCard(imageData){
 
-	    var image = document.getElementById('cameraPic');
+	    var image = document.getElementById('cameraPicCard');
 	    image.src = imageData;
 	    sPicDataCard  = imageData; //store image data in a variable
 		userId = $('#user_id').val();
@@ -1342,7 +1344,7 @@
 	}
 
 	function picOnFailureCard(message){
-	    //alert('Failed because: ' + message);
+	   alert('card Failed because: ' + message);
 	}
 
 	// ----- upload image ------------
@@ -1366,12 +1368,12 @@
 	   alert(r.response);
 	   alert(r.responseCode);
 	   alert(r.bytesSent);
-	   alert("image uploaded scuccesfuly");
+	   alert("card image uploaded scuccesfuly");
 	}
 
 	function failcard(error){
 		
-	   alert("An error has occurred: Code = " +error.code);
+	   alert("Card An error has occurred: Code = " +error.code);
 	}
 	
 	
