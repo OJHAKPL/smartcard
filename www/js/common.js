@@ -1547,8 +1547,6 @@
 		});
 	} 
 	
-	
-	
 	$(document).on("pagechange", function (e, data) {
 		var page = data.toPage[0].id;
 		$(".card-list-page").removeClass("active-menu");
