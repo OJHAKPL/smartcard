@@ -16,39 +16,43 @@
 	
 	function pushNotify() {
 		
-		  var push = PushNotification.init({
-            "ios": {
-			 "alert": true,
-              "sound": true,
-              "vibration": true,
-              "badge": true,
-              "clearBadge": true
-            }
-        });
+		var push = PushNotification.init({ 
+		 "android": 
+		 {"senderID": "48866309941"}
+          } );
 
-        push.on('registration', function(data) {
+		push.on('registration', function(data) {
+			var loginid='';
+			if (localStorage.getItem('userid')){
+				loginid = localStorage.getItem('userid');
+			} else{
+				loginid = localStorage.getItem('userid-2');
+			} 
+				
             // send data.registrationId to push service
 			$.post(
 				webservice_url+'web-device-tocken',
-			{
-				tocken_id: data.registrationId, //'adjadkdjkalskjsaaldkSAJKLD',
-				user_id: localStorage.getItem('userid')
-			},
-			function(data,status){
-				var dataArray = jQuery.parseJSON(data);
-				var htmlStr='';
-				$.each(dataArray, function(i, field){
-					
-				});					
-			});
+				{
+					tocken_id: data.registrationId, //'adjadkdjkalskjsaaldkSAJKLD',
+					user_id: loginid
+				},
+					function(data,status){
+					var dataArray = jQuery.parseJSON(data);
+					var htmlStr='';
+					$.each(dataArray, function(i, field){
+									
+					});					
+				}
+			);
         }); 
-		
-		push.on('notification', function(data) {
+
+
+        push.on('notification', function(data) {
             // do something with the push data
             // then call finish to let the OS know we are done
-			showAlert(data.message)
-			//alert(data.message);
+			alert(data.message);
 			//alert(data.title);
+			//alert(data.count);
 			//alert(data.sound);
 			//alert(data.image);
 			//alert(data.additionalData);
@@ -67,8 +71,10 @@
 			showAlert(e.message+ 'error');
 			//console.log(e.message);
 		});
+		
 	}	 
 	
+ 
 	
 	
 	function navigationOpen(){ 
@@ -345,9 +351,9 @@
 	function win(r){
 		/*------------ Images upload -----------*/
 	    alert(r.response);
-	    alert(r.responseCode);
-	    alert(r.bytesSent);
-	    alert("User image uploaded scuccesfuly");
+	    //alert(r.responseCode);
+	    //alert(r.bytesSent);
+	    //alert("User image uploaded scuccesfuly");
 	}
 
 	function fail(error){
@@ -1253,7 +1259,49 @@
 				dataType: 'html'
 			});
 		}
+	} 
+
+
+ 	/*--------- Paper Card Details -----------*/
+	
+	function PapercardDetail(paper_card_id) {
+		
+		user_id = localStorage.getItem('userid');
+		if(user_id==null || user_id==''){
+			user_id = localStorage.getItem('userid-2');
+		}
+		if(user_id) {
+			$.mobile.changePage("#paper-card-details",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
+			$.ajax({
+				type: 'POST',
+				url: webservice_url+'web-paper-card-detail',
+				beforeSend: function(){
+					$('.loader_papercarddetail').show();
+				},
+				complete: function(){
+					$('.loader_papercarddetail').hide();
+				},
+				data: { "user_id": user_id, "paper_card_id": paper_card_id },
+				success: function(papercarddetail){
+					
+					var papercarddetailArr = jQuery.parseJSON(papercarddetail);
+					if(!papercarddetailArr.error) {
+						$('.papercarddetailHtml').html(papercarddetailArr.success);
+					} else {
+						$(".errorMsgShow").show();
+						$(".errorMsgShow").removeClass("success");
+						$(".errorMsgShow").addClass("error");
+						$(".errorMsgShow").text(papercarddetailArr.error);
+						setTimeout(function() {
+							$('.errorMsgShow').hide();
+						}, 4000);
+					}
+				},
+				dataType: 'html'
+			});
+		}
 	}  
+
 	
 	/*---------- Delete Paper Card ---------*/
 	function deletePapercard(paper_card_id) {
@@ -1366,19 +1414,15 @@
 	function wincard(r){
 		/*------------ Images upload -----------*/
 	   alert(r.response);
-	   alert(r.responseCode);
-	   alert(r.bytesSent);
-	   alert("card image uploaded scuccesfuly");
+	   //alert(r.responseCode);
+	   //alert(r.bytesSent);
+	   //alert("Paper card uploaded scuccesfuly");
+	   paperCards();
 	}
 
 	function failcard(error){
-		
-	   alert("Card An error has occurred: Code = " +error.code);
-	}
-	
-	
-	
-	
+	   alert("An error has occurred: Code = " +error.code);
+	} 
 	
 	
 	/*--------- Register -----------*/  

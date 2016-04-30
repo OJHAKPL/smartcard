@@ -1369,3 +1369,14 @@ img.responsimg {
 .add-paper-card {
 	padding:10px;
 }
+
+
+.paper-card-templete {
+  background: #f0f6fd none repeat scroll 0 0;
+  box-shadow: 0 0 4px #839fb9;
+  margin-bottom:12px;
+}
+
+.paper-card-templete > img {
+    width: 100%;
+}
