@@ -44,7 +44,7 @@
 			} else{
 				loginid = localStorage.getItem('userid-2');
 			} 
-				
+				alert ('tocken id'+data.registrationId);
             // send data.registrationId to push service
 			$.post(
 				webservice_url+'web-device-tocken',
@@ -56,7 +56,7 @@
 					var dataArray = jQuery.parseJSON(data);
 					var htmlStr='';
 					$.each(dataArray, function(i, field){
-									
+						alert('field'+field);			
 					});					
 				}
 			);
@@ -77,9 +77,9 @@
 			// data.sound,
 			// data.image,
 			// data.additionalData
-			//alert(data.registrationId+'here');
+			alert(data.registrationId+'here');
             push.finish(function() {
-				console.log("processing of push data is finished");
+				alert("processing of push data is finished");
             });
         }); 
 		
