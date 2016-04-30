@@ -3,7 +3,7 @@
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		checkConnection();
+		//checkConnection();
 	});
 	
 	
@@ -31,10 +31,10 @@
 
 	
 	function pushNotify() {
-		
+		alert('push');
 		var push = PushNotification.init({ 
 		 "android": 
-		 {"senderID": "48866309941"}
+		 {"senderID": "977822357172"}
           } );
 
 		push.on('registration', function(data) {
