@@ -3,8 +3,24 @@
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		//loading('show', 1);
+		checkConnection();
 	});
+	
+	
+	
+	function checkConnection() {
+        var networkState = navigator.network.connection.type;
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+        alert('Connection type: ' + states[networkState]);
+    }
+
 	 
 	 
 	function loading(showOrHide, delay) {
@@ -108,7 +124,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						//pushNotify();
+						pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
@@ -329,7 +345,7 @@
 	}
 
 	function picOnFailure(message){
-	    alert('User Failed because: ' + message);
+		showAlert('Image not uploaded because: ' + message);
 	}
 
 	// ----- upload image ------------
@@ -350,14 +366,17 @@
 
 	function win(r){
 		/*------------ Images upload -----------*/
-	    alert(r.response);
+		//message = (r.response)?r.response:'';
+		//showAlert(message);
+	   
 	    //alert(r.responseCode);
 	    //alert(r.bytesSent);
 	    //alert("User image uploaded scuccesfuly");
 	}
 
 	function fail(error){
-	   alert("An error has occurred: Code = "+ error.code);
+		message = "An error has occurred: Code = "+ error.code
+		showAlert(message);
 	}
 	
 	
@@ -1392,7 +1411,7 @@
 	}
 
 	function picOnFailureCard(message){
-	   alert('card Failed because: ' + message);
+	   showAlert('Image not uploaded because: ' + message);
 	}
 
 	// ----- upload image ------------
@@ -1413,15 +1432,14 @@
 
 	function wincard(r){
 		/*------------ Images upload -----------*/
-	   alert(r.response);
-	   //alert(r.responseCode);
-	   //alert(r.bytesSent);
-	   //alert("Paper card uploaded scuccesfuly");
-	   paperCards();
+		message = (r.response)?r.response:'';
+		showAlert(message);
+		paperCards();
 	}
 
 	function failcard(error){
-	   alert("An error has occurred: Code = " +error.code);
+		message =  "An error has occurred: Code = " +error.code
+		showAlert(message);
 	} 
 	
 	
@@ -1569,29 +1587,34 @@
 			
 				var dataMsg = jQuery.parseJSON(movefolderData);	
 				if(dataMsg.error){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("success");
-					$(".errorMsgShow").addClass("error");
-					$(".errorMsgShow").text(dataMsg.error);								
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);								
+					showAlert(dataMsg.error);
 				}
 				if(dataMsg.success){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("error");
-					$(".errorMsgShow").addClass("success");
-					$(".errorMsgShow").text(dataMsg.success);
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-						//$('#movetofolder').popup('close');
-						myfolderList();
-					}, 4000);
+					showAlert(dataMsg.success);
+					myfolderList();
 				}
 			},
 			dataType: 'html'
 		});
-	} 
+	}  
+	
+	
+    // alert dialog dismissed
+    function alertDismissed() {
+        // do something
+    }
+
+    // Show a custom alert
+    //
+    function showAlert(message) {
+        navigator.notification.alert(
+            message,  // message
+            alertDismissed,         // callback
+            'Smartcard Global',     // title
+            'Ok'                  // buttonName
+        );
+    }
+	
 	
 	$(document).on("pagechange", function (e, data) {
 		var page = data.toPage[0].id;
