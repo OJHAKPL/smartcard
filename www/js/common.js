@@ -3,7 +3,7 @@
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		//checkConnection();
+		checkConnection();
 	});
 	
 	
@@ -18,7 +18,9 @@
         states[Connection.CELL_3G]  = 'Cell 3G connection';
         states[Connection.CELL_4G]  = 'Cell 4G connection';
         states[Connection.NONE]     = 'No network connection';
-        alert('Connection type: ' + states[networkState]);
+		if(states[networkState]=='Unknown connection' || states[networkState]=='No network connection') {
+			showAlert('Connection error: ' + states[networkState]);
+		}
     }
 
 	 
@@ -31,10 +33,10 @@
 
 	
 	function pushNotify() {
-		alert('push');
+		//alert('push');
 		var push = PushNotification.init({ 
 		 "android": 
-		 {"senderID": "977822357172"}
+		 {"senderID": "48866309941"}
           } );
 
 		push.on('registration', function(data) {
@@ -44,7 +46,7 @@
 			} else{
 				loginid = localStorage.getItem('userid-2');
 			} 
-				alert ('tocken id'+data.registrationId);
+			//alert ('tocken id'+data.registrationId);
             // send data.registrationId to push service
 			$.post(
 				webservice_url+'web-device-tocken',
@@ -56,7 +58,7 @@
 					var dataArray = jQuery.parseJSON(data);
 					var htmlStr='';
 					$.each(dataArray, function(i, field){
-						alert('field'+field);			
+						//alert('field'+field);			
 					});					
 				}
 			);
@@ -77,9 +79,9 @@
 			// data.sound,
 			// data.image,
 			// data.additionalData
-			alert(data.registrationId+'here');
+			//alert(data.registrationId+'here');
             push.finish(function() {
-				alert("processing of push data is finished");
+				//alert("processing of push data is finished");
             });
         }); 
 		
@@ -128,13 +130,7 @@
 						cardlist();
 					} else {
 						if(dataArray.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataArray.error);
-							setTimeout(function() {
-							$('.errorMsgShow').hide();
-							}, 3000);
+							showAlert(dataArray.error);
 						}		
 					}					
 				});
@@ -423,26 +419,13 @@
 					},
 					data : $('#editprofile').serialize(),
 					success: function(updateProfile){ 
-					
 						var dataMsg = jQuery.parseJSON(updateProfile);	
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);								
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.error);
 						}
 						if(dataMsg.success){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").text(dataMsg.success);
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-								viewProfile();
-							}, 4000);
+							showAlert(dataMsg.success);
+							viewProfile();
 						}
 					},
 					dataType: 'html'
@@ -456,6 +439,7 @@
 	
 	/*----------- card details ----------*/
 	function editCard(cardId){
+		//alert('edit card'); 
 		$.mobile.changePage("#update-card",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
 		$.ajax({
 			type: 'POST',
@@ -536,25 +520,12 @@
 					},
 					data : $('#editcard').serialize(),
 					success: function(updateCard){ 
-					
 						var dataMsg = jQuery.parseJSON(updateCard);	
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);								
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.error);
 						}
 						if(dataMsg.success){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").text(dataMsg.success);
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.success);
 						}
 					},
 					dataType: 'html'
@@ -650,26 +621,13 @@
 				$('.loader_cardlinklist').hide();
 			},
 			data : $('#editcard_link').serialize(),
-			success: function(updateCard){ 
-			
+			success: function(updateCard) {
 				var dataMsg = jQuery.parseJSON(updateCard);	
 				if(dataMsg.error){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("success");
-					$(".errorMsgShow").addClass("error");
-					$(".errorMsgShow").text(dataMsg.error);								
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.error);
 				}
 				if(dataMsg.success){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("error");
-					$(".errorMsgShow").addClass("success");
-					$(".errorMsgShow").text(dataMsg.success);
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.success);
 				}
 			},
 			dataType: 'html'
@@ -683,7 +641,6 @@
 	
 	function onBackKeyDown() {
 		history.go(-1);
-		
 	}
 	
 	
@@ -774,22 +731,10 @@
 			
 				var dataMsg = jQuery.parseJSON(data_get);	
 				if(dataMsg.error){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("success");
-					$(".errorMsgShow").addClass("error");
-					$(".errorMsgShow").text(dataMsg.error);								
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.error);
 				}
 				if(dataMsg.success){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("error");
-					$(".errorMsgShow").addClass("success");
-					$(".errorMsgShow").text(dataMsg.success);
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.success);
 				}
 			},
 			dataType: 'html'
@@ -854,23 +799,11 @@
 			
 				var dataMsg = jQuery.parseJSON(data_get);	
 				if(dataMsg.error){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("success");
-					$(".errorMsgShow").addClass("error");
-					$(".errorMsgShow").text(dataMsg.error);								
-					setTimeout(function() {
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.error);
 				}
 				if(dataMsg.success){
-					$(".errorMsgShow").show();
-					$(".errorMsgShow").removeClass("error");
-					$(".errorMsgShow").addClass("success");
-					$(".errorMsgShow").text(dataMsg.success);
-					setTimeout(function() {
-						basicCardList();
-						$('.errorMsgShow').hide();
-					}, 4000);
+					showAlert(dataMsg.success);
+					basicCardList();
 				}
 			},
 			dataType: 'html'
@@ -967,23 +900,11 @@
 					success: function(passwordData){ 
 						var dataMsg = jQuery.parseJSON(passwordData);
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);	
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.error);
 						}
 						if(dataMsg.success){
 							$("#changepassword_form").trigger('reset');
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").text(dataMsg.success);
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.success);
 						}
 					},
 					dataType: 'html'
@@ -1075,24 +996,12 @@
 					success: function(passwordData){ 
 						var dataMsg = jQuery.parseJSON(passwordData);
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);	
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.error);
 						}
 						if(dataMsg.success){
 							$("#folder_name").val('');
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").text(dataMsg.success);
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-								myfolderList();
-							}, 4000);
+							showAlert(dataMsg.success);
+							myfolderList();
 						}
 					},
 					dataType: 'html'
@@ -1213,25 +1122,13 @@
 					
 						var dataMsg = jQuery.parseJSON(forgotData);
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);							
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);
+							showAlert(dataMsg.error);
 						}
 						if(dataMsg.success){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").text(dataMsg.success);
+							showAlert(dataMsg.success);
 							$("#forgot-email").val('');
-							setTimeout(function() {
-								$(".errorMsgShow").hide();
-								$.mobile.changePage("#login",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
-							}, 4000);
-						}
+							$.mobile.changePage("#login",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
+ 						}
 					},
 					dataType: 'html'
 				});
@@ -1341,22 +1238,10 @@
 				success: function(papercardlist){
 					var papercardlistArr = jQuery.parseJSON(papercardlist);
 					if(!papercardlistArr.error) {
-						$(".errorMsgShow").show();
-						$(".errorMsgShow").removeClass("error");
-						$(".errorMsgShow").addClass("success");
-						$(".errorMsgShow").text(papercardlistArr.success);
-						setTimeout(function() {
-							$('.errorMsgShow').hide();
-						}, 4000);
+						showAlert(papercardlistArr.success);
 					} else {
-						$(".errorMsgShow").show();
-						$(".errorMsgShow").removeClass("success");
-						$(".errorMsgShow").addClass("error");
-						$(".errorMsgShow").text(papercardlistArr.error);
-						setTimeout(function() {
-							$('.errorMsgShow').hide();
-						}, 4000);
-					}
+						showAlert(papercardlistArr.error);
+ 					}
 				},
 				dataType: 'html'
 			});
@@ -1507,25 +1392,12 @@
 					
 						var dataMsg = jQuery.parseJSON(registerData);	
 						if(dataMsg.error){
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("success");
-							$(".errorMsgShow").addClass("error");
-							$(".errorMsgShow").text(dataMsg.error);								
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-							}, 4000);								
+							showAlert(dataMsg.error);	
 						}
 						if(dataMsg.success){
+							showAlert(dataMsg.success)
 							$("#register_form").trigger('reset');
-							$(".errorMsgShow").show();
-							$(".errorMsgShow").removeClass("error");
-							$(".errorMsgShow").addClass("success");
-							$(".errorMsgShow").text(dataMsg.success);
-							window.localStorage.clear();
-							setTimeout(function() {
-								$('.errorMsgShow').hide();
-								$.mobile.changePage("#login",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
-							}, 4000);
+							$.mobile.changePage("#login",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
 						}
 					},
 					dataType: 'html'
