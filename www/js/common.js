@@ -3,7 +3,7 @@
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		//checkConnection();
+		checkConnection();
 	});
 	
 	
@@ -126,7 +126,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						//pushNotify();
+						pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
@@ -1506,8 +1506,19 @@
 	
 	$(document).on('vclick', '#edit_button_card', function(e){
 		card_id = $('#card_id_get').val();
-		alert(card_id);
 		editCard(card_id);
+	});
+	
+	$(document).on('vclick', '#share_button_card', function(e){
+		share_fullname = $('#share_fullname').val();
+		share_user_photo = $('#share_user_photo').val();
+		share_shareUrl = $('#share_shareUrl').val();
+		window.plugins.socialsharing.share(share_fullname, null,share_user_photo, share_shareUrl);
+	});
+	
+	$(document).on('vclick', '#detail_button_card', function(e){
+		card_id = $('#card_id_get').val();
+		cartDetails(card_id);
 	});
 	
 	
