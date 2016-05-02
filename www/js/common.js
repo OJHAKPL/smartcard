@@ -68,7 +68,7 @@
         push.on('notification', function(data) {
             // do something with the push data
             // then call finish to let the OS know we are done
-			alert(data.message);
+			showAlert(data.message);
 			//alert(data.title);
 			//alert(data.count);
 			//alert(data.sound);
