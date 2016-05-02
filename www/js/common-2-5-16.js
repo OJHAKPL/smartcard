@@ -3,7 +3,7 @@
 	
 	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		//checkConnection();
+		checkConnection();
 	});
 	
 	
@@ -126,7 +126,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						//pushNotify();
+						pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
@@ -1502,13 +1502,6 @@
 		window.localStorage.clear();
 		$.mobile.changePage("#login"),{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"};
 	} 
-	
-	
-	$(document).on('vclick', '#edit_button_card', function(e){
-		card_id = $('#card_id_get').val();
-		alert(card_id);
-		editCard(card_id);
-	});
 	
 	
 	$(document).on('pageshow', '[data-role="page"]', function() {
