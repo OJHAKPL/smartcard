@@ -1,12 +1,9 @@
 	//window.webservice_url = "http://192.168.1.16/projects/laravel/smartcard/admin/";
 	window.webservice_url = "https://www.smartcardglobal.com/admin/";
 	
-	//alert (webservice_url);
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
 		checkConnection();
 	});
-	
-	
 	
 	function checkConnection() {
         var networkState = navigator.network.connection.type;
@@ -23,8 +20,6 @@
 		}
     }
 
-	 
-	 
 	function loading(showOrHide, delay) {
 		setTimeout(function() {
 			$.mobile.loading(showOrHide);
@@ -139,8 +134,6 @@
 	} 
 	
 	
-	
-	 
 	/*--------- Card List-----------*/
 	
 	function cardlist() {
