@@ -291,6 +291,7 @@ body, input, select, textarea, button, .ui-btn, div, h1, h2, h3, h4, h5, h6{
 .folder-list .title{
     font-size: 18px;
 	margin-left:16px;
+	margin-bottom: 0px;
 }
 .folder-list .title .add-btn{
     display: inline-block;
