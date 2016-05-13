@@ -1,7 +1,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.girishas.smartcard" version="1.0.2">
   <name>Smartcard Global</name>
   <description>Smartcard GLobal</description>
-  <author href="https://www.smartcardglobal.com/admin/" email="dev.girishas@gmail.com">GISLLP Team</author>
+  <author href="https://www.smartcardglobal.com" email="dev.girishas@gmail.com">GISLLP Team</author>
   <content src="index.html"/>
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
