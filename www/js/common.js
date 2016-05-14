@@ -1557,6 +1557,27 @@
 		alert(mobile);
 		//var profilephoto = profilephoto.replace("large", "thumb");
 		
+		var contact = navigator.contacts.create();
+                                              
+                            contact.name = {givenName: first_name, familyName: last_name};
+                            contact.displayName = full_name;
+                                               
+                            var phoneNumbers = [];
+                            phoneNumbers[0] = new ContactField('mobile', mobile, true); // preferred number
+                            contact.phoneNumbers = phoneNumbers;
+                                               
+                            var emails = [];
+                            emails[0] = new ContactField('work', email, true); // preferred email
+                            contact.emails = emails;
+                                               
+                            var photos = [];
+                            photos[0] = new ContactField('photos',profilephoto,true); // preferred profile picture
+                            contact.photos = photos;
+                                               
+                            // save to device
+                           contact.save(onSuccesscon(full_name),onErrorcom);
+		
+		
 		var options = new ContactFindOptions();
 		full_name = '';
 		if(first_name && last_name){
