@@ -864,7 +864,7 @@ img.responsimg {
 .banner-image {
   background: #f0f6fd none repeat scroll 0 0;
   box-shadow: 0 0 4px #839fb9;
-  height: 130px; margin-bottom:12px;
+  height: 145px; margin-bottom:12px;
 }
 .banner-image > img{ width:100%;} 
  
@@ -920,7 +920,7 @@ img.responsimg {
 }
 
 
-.vertical-link li{ list-style:none; padding:6px 0;}
+.vertical-link li{ list-style:none; padding:4px 0;}
 .vertical-link img {
   width: 20px;
 }
