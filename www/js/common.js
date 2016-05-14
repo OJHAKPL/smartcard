@@ -1563,65 +1563,77 @@
 	function contactAdd(first_name,last_name,email,mobile,profilephoto) {
 		
 		alert(email);
-		alert(mobile);
-		 var myContact = navigator.contacts.create(
-			 {
-			 "displayName":null,
-			 "name":{
-			 "givenName":"Sundaravel",
-			 "formatted":"Sundaravel MSM",
-			 "middleName":null,
-			 "familyName":"MSM",
-			 "honorificPrefix":null,
-			 "honorificSuffix":null
-			 },
-			 "nickname":null,
-			 "phoneNumbers":[
-			 {"type":"mobile","value":"+919500707757","id":0,"pref":false},
-			 {"type":"other","value":"+919500707757","id":1,"pref":false}
-			 ],
-			 "emails":[
-			 {"type":"home","value":"sundaravelit@gmail.com","id":0,"pref":false}
-			 ],
-			 "addresses":[
-			 {
-			 "postalCode":"600094",
-			 "type":"work",
-			 "id":0,
-			 "locality":"Indian",
-			 "pref":"false",
-			 "streetAddress":" ",
-			 "region":"Chennai, Tamilnadu",
-			 "country":"India"
-			 }],
-			 "ims":null,
-			 "organizations":[
-			 {
-			 "name":"Lucin Inc",
-			 "title":"CEO",
-			 "type":null,
-			 "pref":"false",
-			 "department":"Software Development"
-			 }],
-			 "birthday":null,
-			 "note":"My Notes",
-			 "categories":null,
-			 "urls":[
-			 {
-			 "type":"other",
-			 "value":"www.phonegap.co.in",
-			 "id":0,
-			 "pref":false
-			 }]
-			 }
-			 );
-			 myContact.save();
-			 alert("The contact, " + myContact.name.givenName + ", has been created");
 		
+		//var profilephoto = profilephoto.replace("large", "thumb");
+		
+		var options = new ContactFindOptions();
+		var full_name ='';
+		if(first_name && last_name){
+			full_name = first_name+' '+last_name;
+		} else if(first_name!='' && last_name==''){
+			full_name = first_name;
+		} else if(first_name=='' && last_name!=''){
+			full_name = last_name;
+		}
+		
+		options.filter   = full_name;
+		options.multiple = true; 
+		var fields = ["displayName", "name"];
+		alert('before find');
+      	navigator.contacts.find(fields, onSuccess, onErrorchek, options);
+		alert('after find');
     }
 	
+	function onSuccess(contacts) {
+			
+           if(contacts.length>0){
+                // already exists cheak
+              
+			  alert('alraedy exist');
+                                // callback to invoke with index of button pressed
+                            // buttonLabels
+                
+                //confirmcheak = confirm('Contact already added. Wish to add again!','ND2NO');
+            }
+            
+            if(contacts.length==0){
+                alert('do not exists');
+                // create a new contact object
+				var myContact = navigator.contacts.create(
+					 {
+					 "displayName":"Sundaravel1",
+					 "name":{
+					 "givenName":"Sundaravel1",
+					 "formatted":"Sundaravel MSM1",
+					 "middleName":null,
+					 "familyName":"MSM"
+					 },
+					 "phoneNumbers":[
+					 {"type":"mobile","value":"+919500756757","id":0,"pref":false},
+					 {"type":"other","value":"+919500705657","id":1,"pref":false}
+					 ],
+					 "emails":[
+					 {"type":"home","value":"sundaravelit1@gmail.com","id":0,"pref":false}
+					 ]
+					 }
+					 );
+					 myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
+					 alert("The contact, " + myContact.name.givenName + ", has been created");
+			}  	
+	}
 	
+	function onErrorchek(contactError) {
+		showAlert("Oops Something went wrong while finding! Please try again later.");
+	}
 	
+	function onSuccesscon(full_name) {
+		full_name = (full_name)?full_name:'Card'; 
+		showAlert(full_name+" has been added to your contacts!")
+	}
+
+	function onErrorcom() {
+		showAlert("Oops Something went wrong while saving! Please try again later.");
+	} 
 	
 	$(document).on('pageshow', '[data-role="page"]', function() {
 		loading('hide', 1000);
