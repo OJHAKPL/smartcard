@@ -1551,6 +1551,15 @@
 		cartDetails(card_id);
 	});
 	
+	function onSuccesscon(full_name) {
+		full_name = (full_name)?full_name:'Card'; 
+		showAlert(full_name+" has been added to your contacts!")
+	}
+
+	function onErrorcom() {
+		showAlert("Oops Something went wrong! Please try again later.");
+	} 
+	
 	function contactAdd(first_name,last_name,email,mobile,profilephoto) {
 		
 		alert(email);
