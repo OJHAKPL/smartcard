@@ -1564,110 +1564,60 @@
 		
 		alert(email);
 		alert(mobile);
-		//var profilephoto = profilephoto.replace("large", "thumb");
+		 var myContact = navigator.contacts.create(
+			 {
+			 "displayName":null,
+			 "name":{
+			 "givenName":"Sundaravel",
+			 "formatted":"Sundaravel MSM",
+			 "middleName":null,
+			 "familyName":"MSM",
+			 "honorificPrefix":null,
+			 "honorificSuffix":null
+			 },
+			 "nickname":null,
+			 "phoneNumbers":[
+			 {"type":"mobile","value":"+919500707757","id":0,"pref":false},
+			 {"type":"other","value":"+919500707757","id":1,"pref":false}
+			 ],
+			 "emails":[
+			 {"type":"home","value":"sundaravelit@gmail.com","id":0,"pref":false}
+			 ],
+			 "addresses":[
+			 {
+			 "postalCode":"600094",
+			 "type":"work",
+			 "id":0,
+			 "locality":"Indian",
+			 "pref":"false",
+			 "streetAddress":" ",
+			 "region":"Chennai, Tamilnadu",
+			 "country":"India"
+			 }],
+			 "ims":null,
+			 "organizations":[
+			 {
+			 "name":"Lucin Inc",
+			 "title":"CEO",
+			 "type":null,
+			 "pref":"false",
+			 "department":"Software Development"
+			 }],
+			 "birthday":null,
+			 "note":"My Notes",
+			 "categories":null,
+			 "urls":[
+			 {
+			 "type":"other",
+			 "value":"www.phonegap.co.in",
+			 "id":0,
+			 "pref":false
+			 }]
+			 }
+			 );
+			 myContact.save();
+			 alert("The contact, " + myContact.name.givenName + ", has been created");
 		
-		var contact = navigator.contacts.create();
-                                              
-                            contact.name = {givenName: first_name, familyName: last_name};
-                            contact.displayName = full_name;
-                                               
-                            var phoneNumbers = [];
-                            phoneNumbers[0] = new ContactField('mobile', mobile, true); // preferred number
-                            contact.phoneNumbers = phoneNumbers;
-                                               
-                            var emails = [];
-                            emails[0] = new ContactField('work', email, true); // preferred email
-                            contact.emails = emails;
-                                               
-                            var photos = [];
-                            photos[0] = new ContactField('photos',profilephoto,true); // preferred profile picture
-                            contact.photos = photos;
-                                               
-                            // save to device
-                           contact.save(onSuccesscon(full_name),onErrorcom);
-		
-		
-		var options = new ContactFindOptions();
-		full_name = '';
-		if(first_name && last_name){
-			full_name = first_name+' '+last_name;
-		} else if(first_name!='' && last_name==''){
-			full_name = first_name;
-		} else if(first_name=='' && last_name!=''){
-			full_name = last_name;
-		}
-		
-		options.filter   = full_name;
-		options.multiple = true; 
-		var fields = ["displayName", "name"];
-		
-      	navigator.contacts.find(fields, onSuccess, onErrorchek, options);
-
-
-		function onSuccess(contacts) {
-			
-           if(contacts.length>0){
-                // already exists cheak
-                navigator.notification.confirm(
-                    'Contact already added. Wish to add again!',  // message
-                    function (button) {
-                        if(button==1){
-                                  
-                            var contact = navigator.contacts.create();
-                                              
-                            contact.name = {givenName: first_name, familyName: last_name};
-                            contact.displayName = full_name;
-                                               
-                            var phoneNumbers = [];
-                            phoneNumbers[0] = new ContactField('mobile', mobile, true); // preferred number
-                            contact.phoneNumbers = phoneNumbers;
-                                               
-                            var emails = [];
-                            emails[0] = new ContactField('work', email, true); // preferred email
-                            contact.emails = emails;
-                                               
-                            var photos = [];
-                            photos[0] = new ContactField('photos',profilephoto,true); // preferred profile picture
-                            contact.photos = photos;
-                                               
-                            // save to device
-                           contact.save(onSuccesscon(full_name),onErrorcom);
-                        }
-                    },              // callback to invoke with index of button pressed
-                    'Smartcard Global',            // title
-                    'OK,Cancel'          // buttonLabels
-                );
-                //confirmcheak = confirm('Contact already added. Wish to add again!','ND2NO');
-            }
-            
-            if(contacts.length==0){
-                
-                // create a new contact object
-				var contact = navigator.contacts.create();
-
-				contact.name = {givenName: first_name, familyName: last_name};
-				contact.displayName = full_name;
-
-				var phoneNumbers = [];
-				phoneNumbers[0] = new ContactField('mobile', mobile, true); // preferred number
-		    	contact.phoneNumbers = phoneNumbers;
-
-				var emails = [];
-				emails[0] = new ContactField('work', email, true); // preferred email
-		    	contact.emails = emails;
-
-				var photos = [];
-				photos[0] = new ContactField('photos',profilephoto,true); // preferred profile picture
-		    	contact.photos = photos;
-
-		    	/*var urls = [];
-		    	urls[0] = new ContactField('home','https://www.gmail.com',true); // preferred Url
-	        	contact.urls = urls;*/
-
-				// save to device
-				contact.save(onSuccesscon(full_name),onErrorcom);
-			}  	
-		};
     }
 	
 	
