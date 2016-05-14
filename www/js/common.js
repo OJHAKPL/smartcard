@@ -1491,6 +1491,17 @@
 		}
 	}
 	
+	function contactConfirm() {
+		var x;
+		if (confirm("Contact details already exists, do you want to add again?") == true) {
+			x = "1";
+			return x;
+		} else {
+			x = "2";
+			return x;
+		}
+	}
+	
 	
     // alert dialog dismissed
     function alertDismissed() {
@@ -1551,14 +1562,7 @@
 		cartDetails(card_id);
 	});
 	
-	function onSuccesscon(full_name) {
-		full_name = (full_name)?full_name:'Card'; 
-		showAlert(full_name+" has been added to your contacts!")
-	}
-
-	function onErrorcom() {
-		showAlert("Oops Something went wrong! Please try again later.");
-	} 
+	
 	
 	function contactAdd(first_name,last_name,email,mobile,profilephoto) {
 		
@@ -1579,53 +1583,84 @@
 		options.filter   = full_name;
 		options.multiple = true; 
 		var fields = ["displayName", "name"];
-		alert('before find');
-      	navigator.contacts.find(fields, onSuccess, onErrorchek, options);
-		alert('after find');
-    }
+		navigator.contacts.find(fields, onSuccess, onErrorchek, options);
 	
-	function onSuccess(contacts) {
-			
-           if(contacts.length>0){
-                // already exists cheak
-              
-			  alert('alraedy exist');
-                                // callback to invoke with index of button pressed
-                            // buttonLabels
-                
-                //confirmcheak = confirm('Contact already added. Wish to add again!','ND2NO');
-            }
-            
-            if(contacts.length==0){
-                alert('do not exists');
-                // create a new contact object
-				var myContact = navigator.contacts.create(
-					 {
-					 "displayName":"Sundaravel1",
-					 "name":{
-					 "givenName":"Sundaravel1",
-					 "formatted":"Sundaravel MSM1",
-					 "middleName":null,
-					 "familyName":"MSM"
-					 },
-					 "phoneNumbers":[
-					 {"type":"mobile","value":"+919500756757","id":0,"pref":false},
-					 {"type":"other","value":"+919500705657","id":1,"pref":false}
-					 ],
-					 "emails":[
-					 {"type":"home","value":"sundaravelit1@gmail.com","id":0,"pref":false}
-					 ]
-					 }
-					 );
-					 myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
-					 alert("The contact, " + myContact.name.givenName + ", has been created");
-			}  	
+		function onSuccess(contacts) {
+				
+			   if(contacts.length>0){
+					// already exists cheak
+				  showAlert('Contact already exists in your Contact List'+contacts.length);
+				  for (var i=0; i<contacts.length; i++) {
+						alert("Display Name = " + contacts[i].displayName);
+						
+						for(var j=0;j<contacts[i].phoneNumbers.length;j++)
+						{
+							alert("Name = " + contacts[i].displayName);
+							alert("Phone = " + contacts[i].phoneNumber[j].value);
+						}
+		   
+					}
+				  
+				  var to_add = contactConfirm();
+				  if (to_add == 1){
+					  var myContact = navigator.contacts.create(
+						 {
+						 "displayName":first_name,
+						 "name":{
+						 "givenName":first_name,
+						 "formatted":full_name,
+						 "familyName":last_name
+						 },
+						 "phoneNumbers":[
+						 {"type":"mobile","value": mobile,"id":0,"pref":false}
+						 ],
+						 "emails":[
+						 {"type":"home","value":email,"id":0,"pref":false}
+						 ]
+						 }
+						 );
+						 var photo=[];
+						photo[0] = new ContactField('photo', profilephoto, false)
+						myContact.photos = photo;
+						myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
+				  }
+				  
+									// callback to invoke with index of button pressed
+								// buttonLabels
+					
+					//confirmcheak = confirm('Contact already added. Wish to add again!','ND2NO');
+				}
+				
+				if(contacts.length==0){
+					// create a new contact object
+					var myContact = navigator.contacts.create(
+						 {
+						 "displayName":first_name,
+						 "name":{
+						 "givenName":first_name,
+						 "formatted":full_name,
+						 "familyName":last_name
+						 },
+						 "phoneNumbers":[
+						 {"type":"mobile","value": mobile,"id":0,"pref":false}
+						 ],
+						 "emails":[
+						 {"type":"home","value":email,"id":0,"pref":false}
+						 ]
+						 }
+						 );
+						 var photo=[];
+						photo[0] = new ContactField('photo', profilephoto, false)
+						myContact.photos = photo;
+						myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
+						
+				}  	
+		}
+		
+		function onErrorchek(contactError) {
+			showAlert("Oops Something went wrong while finding! Please try again later.");
+		}
 	}
-	
-	function onErrorchek(contactError) {
-		showAlert("Oops Something went wrong while finding! Please try again later.");
-	}
-	
 	function onSuccesscon(full_name) {
 		full_name = (full_name)?full_name:'Card'; 
 		showAlert(full_name+" has been added to your contacts!")
