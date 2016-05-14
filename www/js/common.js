@@ -1491,16 +1491,7 @@
 		}
 	}
 	
-	function contactConfirm() {
-		var x;
-		if (confirm("Contact details already exists, do you want to add again?") == true) {
-			x = "1";
-			return x;
-		} else {
-			x = "2";
-			return x;
-		}
-	}
+	
 	
 	
     // alert dialog dismissed
@@ -1565,9 +1556,6 @@
 	
 	
 	function contactAdd(first_name,last_name,email,mobile,profilephoto) {
-		
-		alert(email);
-		
 		//var profilephoto = profilephoto.replace("large", "thumb");
 		
 		var options = new ContactFindOptions();
@@ -1589,17 +1577,7 @@
 				
 			   if(contacts.length>0){
 					// already exists cheak
-				  showAlert('Contact already exists in your Contact List'+contacts.length);
-				  for (var i=0; i<contacts.length; i++) {
-						alert("Display Name = " + contacts[i].displayName);
-						
-						for(var j=0;j<contacts[i].phoneNumbers.length;j++)
-						{
-							alert("Name = " + contacts[i].displayName);
-							alert("Phone = " + contacts[i].phoneNumber[j].value);
-						}
-		   
-					}
+				  
 				  
 				  var to_add = contactConfirm();
 				  if (to_add == 1){
@@ -1658,7 +1636,7 @@
 		}
 		
 		function onErrorchek(contactError) {
-			showAlert("Oops Something went wrong while finding! Please try again later.");
+			showAlert("Oops Something went wrong! Please try again later.");
 		}
 	}
 	function onSuccesscon(full_name) {
@@ -1667,8 +1645,19 @@
 	}
 
 	function onErrorcom() {
-		showAlert("Oops Something went wrong while saving! Please try again later.");
+		showAlert("Oops Something went wrong! Please try again later.");
 	} 
+	
+	function contactConfirm() {
+		var y;
+		if (confirm("Contact details already exists, do you want to add again?") == true) {
+			y = "1";
+			return y;
+		} else {
+			y = "2";
+			return y;
+		}
+	}
 	
 	$(document).on('pageshow', '[data-role="page"]', function() {
 		loading('hide', 1000);
