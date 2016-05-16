@@ -3,7 +3,7 @@
 	
 	
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
-		checkConnection();
+		//checkConnection();
 	});
 	
 	$('#login').live('pageinit', function(e) { checkPreAuth(); });
@@ -136,7 +136,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						pushNotify();
+						//pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
@@ -536,6 +536,7 @@
 						}
 						if(dataMsg.success){
 							showAlert(dataMsg.success);
+							cartDetails(card_id);
 						}
 					},
 					dataType: 'html'
@@ -620,6 +621,7 @@
 	
 	
 	function cardLinkSubmit(){
+		var card_id = $('#id').val();
 		var push_response = pushConfirm();
 		$.ajax({
 			type: 'POST',
@@ -638,6 +640,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -726,6 +729,7 @@
 	
 	
 	function cardScrollerSubmit(){
+		var card_id = $('#id').val();
 		var push_response = pushConfirm();
 		$.ajax({
 			type: 'POST',
@@ -745,6 +749,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -813,7 +818,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
-					basicCardList();
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -1657,6 +1662,104 @@
 			y = "2";
 			return y;
 		}
+	} 
+	
+	
+	/*--------- Update Card Image -----------*/
+	
+	function imageTemplate(card_id, type) {
+		
+		user_id = localStorage.getItem('userid');
+		if(user_id==null || user_id==''){
+			user_id = localStorage.getItem('userid-2');
+		}
+		if(user_id && card_id && type) {
+			$.mobile.changePage("#card-image-update",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
+			
+			html_cardimage = '<img style="display:none;" id="cameraPicCard1" alt="" src=""><input type="hidden" name="card_id_image" id="card_id_image" value="'+card_id+'"><input type="hidden" name="card_type_image" id="card_type_image" value="'+type+'"><div id="camera" style="height: 60px;"><button class="camera-control ui-btn ui-shadow ui-corner-all" type="button" onclick="cardimagesPhoto('+card_id+','+type+');" style="width: 50%; float: left;">Camera</button><button class="camera-control ui-btn ui-shadow ui-corner-all" type="button" onclick="cardimagesgetPhoto('+card_id+','+type+');" style="width: 50%; float: right;">Gallery</button></div>'
+			$('.cardimagesHtml').html(html_cardimage);
+		}
+	} 
+	
+	
+	
+	/*--------------  Update Card Images --------------*/
+	
+	var pictureSourceCard;   // picture source
+	var destinationTypeCard; // sets the format of returned value
+
+	document.addEventListener("deviceready", onDeviceReadyCard, false);
+
+	function onDeviceReadyCard() {
+	    pictureSourceCard   = navigator.camera.PictureSourceType;
+	    destinationTypeCard = navigator.camera.DestinationType;
+	}
+
+	function clearCache() {
+	    navigator.camera.cleanup();
+	} 
+
+	var sPicDataCard; //store image data for image upload functionality
+
+	function cardimagesPhoto(){
+	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
+	                                quality: 20,
+	                                destinationTypeCard: destinationTypeCard.FILE_URI,
+	                                sourceType: pictureSourceCard.CAMERA,
+	                                correctOrientation: true
+	                                });
+	}
+
+	function cardimagesgetPhoto(){
+	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
+	        quality: 20,
+	        destinationTypeCard: destinationTypeCard.FILE_URI,
+	        sourceType: pictureSourceCard.SAVEDPHOTOALBUM,
+	        correctOrientation: true
+	    });
+	}
+
+	function picOnSuccessCard(imageData){
+	
+	    var image = document.getElementById('cameraPicCard1');
+		image.src = imageData;
+	    sPicDataCard  = imageData; //store image data in a variable
+		card_id_image = $('#card_id_image').val();
+		card_type_image = $('#card_type_image').val();
+		photoUploadCard(card_id_image,card_type_image);
+	}
+
+	function picOnFailureCard(message){
+	   showAlert('Image not uploaded because: ' + message);
+	}
+
+	// ----- upload image ------------
+	function photoUploadCard(card_id_image,card_type_image) {
+	    var options = new FileUploadOptions();
+	    options.fileKey = "file";
+	    options.fileName = sPicDataCard.substr(sPicDataCard.lastIndexOf('/') + 1);
+	    options.mimeType = "image/jpeg";
+	    options.chunkedMode = false;
+
+	    var params = new Object();
+	    params.fileKey = "file";
+	    options.params = {}; // eig = params, if we need to send parameters to the server request
+	    ft = new FileTransfer();
+	    ft.upload(sPicDataCard, webservice_url+"update-card-image/"+card_id_image+'/'+card_type_image, wincard, failcard, options);
+	}
+	
+
+	function wincard(r){
+		card_id_image = $('#card_id_image').val();
+		/*------------ Images upload -----------*/
+		message = (r.response)?r.response:'';
+		showAlert(message);
+		cartDetails(card_id_image);
+	}
+
+	function failcard(error){
+		message =  "An error has occurred: Code = " +error.code
+		showAlert(message);
 	}
 	
 	$(document).on('pageshow', '[data-role="page"]', function() {

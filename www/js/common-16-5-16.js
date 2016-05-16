@@ -1,13 +1,25 @@
 	//window.webservice_url = "http://192.168.1.16/projects/laravel/smartcard/admin/";
 	window.webservice_url = "https://www.smartcardglobal.com/admin/";
 	
-	//alert (webservice_url);
+	
 	$(document).on('pagebeforecreate', '[data-role="page"]', function() {
 		checkConnection();
 	});
 	
+	$('#login').live('pageinit', function(e) { checkPreAuth(); });
+	$("#roleManagement").submit(function() {
+		   homeLogin();
+	})
 	
+	function checkPreAuth() {
+		user_id = window.localStorage.getItem('userid');
+		if(user_id==null || user_id==''){
+			$.mobile.changePage("#login",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
+		} else {
+			cardlist();
+		}
 	
+	}
 	function checkConnection() {
         var networkState = navigator.network.connection.type;
         var states = {};
@@ -23,8 +35,6 @@
 		}
     }
 
-	 
-	 
 	function loading(showOrHide, delay) {
 		setTimeout(function() {
 			$.mobile.loading(showOrHide);
@@ -68,7 +78,7 @@
         push.on('notification', function(data) {
             // do something with the push data
             // then call finish to let the OS know we are done
-			alert(data.message);
+			showAlert(data.message);
 			//alert(data.title);
 			//alert(data.count);
 			//alert(data.sound);
@@ -139,8 +149,6 @@
 	} 
 	
 	
-	
-	 
 	/*--------- Card List-----------*/
 	
 	function cardlist() {
@@ -439,8 +447,10 @@
 	
 	/*----------- card details ----------*/
 	function editCard(cardId){
+		
 		//alert('edit card'); 
 		$.mobile.changePage("#update-card",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
+		
 		$.ajax({
 			type: 'POST',
 			url: webservice_url+'web-update-card/'+cardId+'',
@@ -507,11 +517,11 @@
 				error.appendTo(element.parent().add());
 			},
 			submitHandler:function (form) {
-				
+				var push_response = pushConfirm();
 				card_id = jQuery('#editcard').find('input[name="id"]').val();
 				$.ajax({
 					type: 'POST',
-					url: webservice_url+'web-update-card/'+card_id,
+					url: webservice_url+'web-update-card/'+card_id+'/'+push_response,
 					beforeSend: function(){
 						$('.loader_useredit').show();
 					},
@@ -526,6 +536,7 @@
 						}
 						if(dataMsg.success){
 							showAlert(dataMsg.success);
+							cartDetails(card_id);
 						}
 					},
 					dataType: 'html'
@@ -610,10 +621,11 @@
 	
 	
 	function cardLinkSubmit(){
-		
+		var card_id = $('#id').val();
+		var push_response = pushConfirm();
 		$.ajax({
 			type: 'POST',
-			url: webservice_url+'web-update-link',
+			url: webservice_url+'web-update-link/'+push_response,
 			beforeSend: function(){
 				$('.loader_cardlinklist').show();
 			},
@@ -628,6 +640,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -716,10 +729,11 @@
 	
 	
 	function cardScrollerSubmit(){
-		
+		var card_id = $('#id').val();
+		var push_response = pushConfirm();
 		$.ajax({
 			type: 'POST',
-			url: webservice_url+'web-update-scroller',
+			url: webservice_url+'web-update-scroller/'+push_response,
 			beforeSend: function(){
 				$('.loader_cardscroller').show();
 			},
@@ -735,6 +749,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -803,7 +818,7 @@
 				}
 				if(dataMsg.success){
 					showAlert(dataMsg.success);
-					basicCardList();
+					cartDetails(card_id);
 				}
 			},
 			dataType: 'html'
@@ -1470,6 +1485,19 @@
 		});
 	}  
 	
+	function pushConfirm() {
+		var x;
+		if (confirm("Do you want to send push notifications for this update?") == true) {
+			x = "1";
+			return x;
+		} else {
+			x = "2";
+			return x;
+		}
+	}
+	
+	
+	
 	
     // alert dialog dismissed
     function alertDismissed() {
@@ -1503,6 +1531,138 @@
 		$.mobile.changePage("#login"),{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"};
 	} 
 	
+	
+	$(document).on('vclick', '#edit_button_card', function(e){
+		var pickid = $(this).attr("class");
+		pickid = pickid.replace ( /[^\d.]/g, '' );
+		pickid = parseInt(pickid);
+		card_id = $('#card_id_get'+pickid).val();
+		editCard(card_id);
+	});
+	
+	$(document).on('vclick', '#share_button_card', function(e){
+		var pickid = $(this).attr("class");
+		pickid = pickid.replace ( /[^\d.]/g, '' );
+		pickid = parseInt(pickid);
+		share_fullname = $('#share_fullname'+pickid).val();
+		share_user_photo = $('#share_user_photo'+pickid).val();
+		share_shareUrl = $('#share_shareUrl'+pickid).val();
+		window.plugins.socialsharing.share(share_fullname, null,share_user_photo, share_shareUrl);
+	});
+	
+	$(document).on('vclick', '#detail_button_card', function(e){
+		var pickid = $(this).attr("class");
+		pickid = pickid.replace ( /[^\d.]/g, '' );
+		pickid = parseInt(pickid);
+		card_id = $('#card_id_get'+pickid).val();
+		cartDetails(card_id);
+	});
+	
+	
+	
+	function contactAdd(first_name,last_name,email,mobile,profilephoto) {
+		//var profilephoto = profilephoto.replace("large", "thumb");
+		
+		var options = new ContactFindOptions();
+		var full_name ='';
+		if(first_name && last_name){
+			full_name = first_name+' '+last_name;
+		} else if(first_name!='' && last_name==''){
+			full_name = first_name;
+		} else if(first_name=='' && last_name!=''){
+			full_name = last_name;
+		}
+		
+		options.filter   = full_name;
+		options.multiple = true; 
+		var fields = ["displayName", "name"];
+		navigator.contacts.find(fields, onSuccess, onErrorchek, options);
+	
+		function onSuccess(contacts) {
+				
+			   if(contacts.length>0){
+					// already exists cheak
+				  
+				  
+				  var to_add = contactConfirm();
+				  if (to_add == 1){
+					  var myContact = navigator.contacts.create(
+						 {
+						 "displayName":first_name,
+						 "name":{
+						 "givenName":first_name,
+						 "formatted":full_name,
+						 "familyName":last_name
+						 },
+						 "phoneNumbers":[
+						 {"type":"mobile","value": mobile,"id":0,"pref":false}
+						 ],
+						 "emails":[
+						 {"type":"home","value":email,"id":0,"pref":false}
+						 ]
+						 }
+						 );
+						 var photo=[];
+						photo[0] = new ContactField('photo', profilephoto, false)
+						myContact.photos = photo;
+						myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
+				  }
+				  
+									// callback to invoke with index of button pressed
+								// buttonLabels
+					
+					//confirmcheak = confirm('Contact already added. Wish to add again!','ND2NO');
+				}
+				
+				if(contacts.length==0){
+					// create a new contact object
+					var myContact = navigator.contacts.create(
+						 {
+						 "displayName":first_name,
+						 "name":{
+						 "givenName":first_name,
+						 "formatted":full_name,
+						 "familyName":last_name
+						 },
+						 "phoneNumbers":[
+						 {"type":"mobile","value": mobile,"id":0,"pref":false}
+						 ],
+						 "emails":[
+						 {"type":"home","value":email,"id":0,"pref":false}
+						 ]
+						 }
+						 );
+						 var photo=[];
+						photo[0] = new ContactField('photo', profilephoto, false)
+						myContact.photos = photo;
+						myContact.save(onSuccesscon(myContact.name.givenName),onErrorcom);
+						
+				}  	
+		}
+		
+		function onErrorchek(contactError) {
+			showAlert("Oops Something went wrong! Please try again later.");
+		}
+	}
+	function onSuccesscon(full_name) {
+		full_name = (full_name)?full_name:'Card'; 
+		showAlert(full_name+" has been added to your contacts!")
+	}
+
+	function onErrorcom() {
+		showAlert("Oops Something went wrong! Please try again later.");
+	} 
+	
+	function contactConfirm() {
+		var y;
+		if (confirm("Contact details already exists, do you want to add again?") == true) {
+			y = "1";
+			return y;
+		} else {
+			y = "2";
+			return y;
+		}
+	}
 	
 	$(document).on('pageshow', '[data-role="page"]', function() {
 		loading('hide', 1000);
