@@ -8,8 +8,17 @@
 	
 	$('#login').live('pageinit', function(e) { checkPreAuth(); });
 	$("#roleManagement").submit(function() {
-		   homeLogin();
-	})
+		homeLogin();
+	});
+	
+	$("#editcard_scroller").submit(function() {
+		   cardScrollerSubmit();
+	});
+	
+	$("#editcard_link").submit(function() {
+		   cardLinkSubmit();
+	});
+	
 	
 	function checkPreAuth() {
 		user_id = window.localStorage.getItem('userid');
