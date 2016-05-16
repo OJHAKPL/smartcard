@@ -136,7 +136,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						//pushNotify();
+						pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
