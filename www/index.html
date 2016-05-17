@@ -41,7 +41,7 @@
 				<p class="errorMsgShow" style="text-align:center; display:none;"></p>
 				<div class="login-form">
 				<form method="post" id="roleManagement" action="">
-					<input type="text" name="text-basic" placeholder="Email ID" id="login-email" value="">
+					<input type="text" name="text-basic" placeholder="Email Address" id="login-email" value="">
 					<input type="password" name="text-basic" placeholder="Password" id="login-password" value="">
 					<div class="forgot-link"><a href="#forgot-password">Forgot password?</a></div>
 					<div class="keeps-checkbox">
@@ -62,7 +62,7 @@
 				<p class="errorMsgShow" style="text-align:center; display:none;"></p> 
 				<div class="login-form">
 					<form id="forgotpassword_form" method="post" enctype="multipart/form-data" name="forgotpassword_form">
-						<input type="text" name="forgot_email" placeholder="Email ID" id="forgot_email" value=""/>
+						<input type="text" name="forgot_email" placeholder="Email Address" id="forgot_email" value=""/>
 						<button id="forgot-email-button" onClick="forgotPassword();" class="ui-btn ui-btn-submit ui-corner-all">Forgot Password</button>
 					</form>
 					<div class="other-link">Don't have account? <a href="#login" data-direction="reverse" data-transition="slide">Click here</a></div>
@@ -79,7 +79,8 @@
 					<form id="register_form">
 						<input type="text" name="first_name" placeholder="First Name" id="first_name" value="">
 						<input type="text" name="last_name" placeholder="Last Name" id="last_name" value="">
-						<input type="text" name="email" placeholder="Email ID" id="email" value="">
+						<input type="text" name="email" placeholder="Email Address" id="email" value="">
+						<input type="text" name="c_email" placeholder="Confirm Email Address" id="c_email" value="">
 						<input type="password" name="password" placeholder="Password" id="password" value="">
 						<input type="text"  data-validation="number" name="phone" placeholder="Phone" id="validPhoneNumber" value="">
 						<div class="keeps-checkbox">
@@ -88,11 +89,6 @@
 						</div>
 						<button type="submit" onClick="register()" class="ui-btn ui-btn-submit ui-corner-all">Register</button>
 					</form>
-					<script type="text/javascript">
-						jQuery(function($){
-							jQuery("#validPhoneNumber").mask("(999) 999-9999");
-						});
-					</script>
 					<div class="other-link">Already have account? <a href="#login" data-direction="reverse" data-transition="slide">Click here</a></div>
 				</div>
 			</div>
@@ -412,7 +408,7 @@
 		
 		<!----------- Card templates List ------------>
 		
- 		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="card-templates-list" data-url="card-templates-list">        
+ 		<div data-role="page" style="background-attachment: fixed;" class="jqm-demos jqm-page jqm-card" id="card-templates-list" data-url="card-templates-list">        
 			
 			<div data-role="header" class="jqm-header">                
                <div class="left-icon">
@@ -610,7 +606,7 @@
 		
 		<!----------- paper cards List ------------>
 		
- 		<div data-role="page" class="jqm-demos jqm-page jqm-card" id="paper-card-list" data-url="paper-card-list">        
+ 		<div data-role="page" style="background-attachment: fixed;" class="jqm-demos jqm-page jqm-card" id="paper-card-list" data-url="paper-card-list">        
 			
 			<div data-role="header" class="jqm-header">                
                <div class="left-icon">
@@ -800,14 +796,10 @@
                     <li><a href="javascript:void(0);" onClick="logout();" data-ajax="false">Logout</a></li>
 				</ul>
 			</div>
-		</div><!-- /page -->  
-		
-		
-		
+		</div><!-- /page -->   
 		
 		
 		<script src="js/swiper.min.js"></script>
-		<script src="js/masked.js"></script>
 		<script type="text/javascript">
 			$('#foo').slideme({
 				arrows: true,

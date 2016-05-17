@@ -11,14 +11,6 @@
 		homeLogin();
 	});
 	
-	$("#editcard_scroller").submit(function() {
-		   cardScrollerSubmit();
-	});
-	
-	$("#editcard_link").submit(function() {
-		   cardLinkSubmit();
-	});
-	
 	
 	function checkPreAuth() {
 		user_id = window.localStorage.getItem('userid');
@@ -407,6 +399,10 @@
 				},
 				phone: {
 					required: true,
+					number: true , minlength: 10 , maxlength: 10
+				},
+				mobile: {
+					number: true , minlength: 10 , maxlength: 10
 				}
 			},
 			messages: {
@@ -418,6 +414,9 @@
 				},
 				phone: {
 					required: "Please enter your phone."
+				},
+				mobile: {
+					
 				}
 			},
 			errorPlacement: function (error, element) {
@@ -629,32 +628,50 @@
 	}	
 	
 	
-	function cardLinkSubmit(){
+	/*--------------- Form Submit Card Link --------------*/
+	function cardLinkSubmit() {
 		var card_id = $('#id').val();
-		var push_response = pushConfirm();
-		$.ajax({
-			type: 'POST',
-			url: webservice_url+'web-update-link/'+push_response,
-			beforeSend: function(){
-				$('.loader_cardlinklist').show();
-			},
-			complete: function(){
-				$('.loader_cardlinklist').hide();
-			},
-			data : $('#editcard_link').serialize(),
-			success: function(updateCard) {
-				var dataMsg = jQuery.parseJSON(updateCard);	
-				if(dataMsg.error){
-					showAlert(dataMsg.error);
-				}
-				if(dataMsg.success){
-					showAlert(dataMsg.success);
-					cartDetails(card_id);
+		$('#editcard_link').validate({
+			rules: {
+				id: {
+					required: true
 				}
 			},
-			dataType: 'html'
+			messages: {
+				id: {
+					required: "Card id is null."
+				}
+			},
+			errorPlacement: function (error, element) {
+				error.appendTo(element.parent().add());
+			},
+			submitHandler:function (form) {
+				var push_response = pushConfirm();
+				$.ajax({
+					type: 'POST',
+					url: webservice_url+'web-update-link/'+push_response,
+					beforeSend: function(){
+						$('.loader_cardlinklist').show();
+					},
+					complete: function(){
+						$('.loader_cardlinklist').hide();
+					},
+					data : $('#editcard_link').serialize(),
+					success: function(updateCard) {
+						var dataMsg = jQuery.parseJSON(updateCard);	
+						if(dataMsg.error){
+							showAlert(dataMsg.error);
+						}
+						if(dataMsg.success){
+							showAlert(dataMsg.success);
+							cartDetails(card_id);
+						}
+					},
+					dataType: 'html'
+				});
+			}
 		});
-	}		
+	}  	
 	
 	
 	function deleteCardLink(cardlinkId){
@@ -666,8 +683,12 @@
 	}
 	
 	
+
+
 	
-	/*--------- Shared Card List-----------*/
+	
+	
+	/*--------- Edit Scroller -----------*/
 	function editscroller(cardId){ 
 	
 		$.mobile.changePage("#card-scroller",{allowSamePageTransition:false,reloadPage:false,changeHash:true,transition:"slide"});
@@ -737,33 +758,52 @@
 	}
 	
 	
-	function cardScrollerSubmit(){
-		var card_id = $('#id').val();
-		var push_response = pushConfirm();
-		$.ajax({
-			type: 'POST',
-			url: webservice_url+'web-update-scroller/'+push_response,
-			beforeSend: function(){
-				$('.loader_cardscroller').show();
-			},
-			complete: function(){
-				$('.loader_cardscroller').hide();
-			},
-			data : $('#editcard_scroller').serialize(),
-			success: function(data_get){ 
-			
-				var dataMsg = jQuery.parseJSON(data_get);	
-				if(dataMsg.error){
-					showAlert(dataMsg.error);
-				}
-				if(dataMsg.success){
-					showAlert(dataMsg.success);
-					cartDetails(card_id);
+	/*--------------- Form Submit Card Scroller --------------*/
+	function cardScrollerSubmit() {
+		
+		$('#editcard_scroller').validate({
+			rules: {
+				id: {
+					required: true
 				}
 			},
-			dataType: 'html'
+			messages: {
+				id: {
+					required: "Card id is null."
+				}
+			},
+			errorPlacement: function (error, element) {
+				error.appendTo(element.parent().add());
+			},
+			submitHandler:function (form) {
+				var push_response = pushConfirm();
+				$.ajax({
+					type: 'POST',
+					url: webservice_url+'web-update-scroller/'+push_response,
+					beforeSend: function(){
+						$('.loader_cardscroller').show();
+					},
+					complete: function(){
+						$('.loader_cardscroller').hide();
+					},
+					data : $('#editcard_scroller').serialize(),
+					success: function(data_get){ 
+						var dataMsg = jQuery.parseJSON(data_get);	
+						if(dataMsg.error){
+							$('.loader_cardscroller').hide();
+							showAlert(dataMsg.error);
+						}
+						if(dataMsg.success){
+							$('.loader_cardscroller').hide();
+							showAlert(dataMsg.success);
+							cartDetails(card_id);
+						}
+					},
+					dataType: 'html'
+				});
+			}
 		});
-	}	
+	} 
 	
 	
 	function deleteCardScroller(cardscrollerId){
@@ -1124,7 +1164,7 @@
 			},
 			messages: {
 				forgot_email: {
-					required: "Email id is required."
+					required: "Email address is required."
 				} 
 			},
 			errorPlacement: function (error, element) {
@@ -1246,7 +1286,7 @@
 	/*---------- Delete Paper Card ---------*/
 	function deletePapercard(paper_card_id) {
 		
-		confirmBox = confirm('Are you sure you want to delete this row');
+		confirmBox = confirm('Are you sure you want to delete this paper card?');
 		if(confirmBox==true) {
 			$(".paper_card_dev_"+paper_card_id).remove();
 			$.ajax({
@@ -1361,6 +1401,10 @@
 					required: true,
 					email: true
 				},
+				c_email: {
+					required: true,
+					equalTo: "#email"
+				},
 				first_name: {
 					required: true
 				},
@@ -1369,6 +1413,7 @@
 				},
 				phone: {
 					required: true,
+					number: true , minlength: 10 , maxlength: 10
 				},
 				password: {
 					required: true, minlength: 6
@@ -1381,6 +1426,10 @@
  				email: {
 					required: "Please enter your email."
 				},
+				c_email: {
+					required: "Please enter your confirm email.",
+					equalTo: "Email address are not matching."
+				},
  				first_name: {
 					required: "Please enter your first name."
 				},
@@ -1388,7 +1437,8 @@
 					required: "Please enter your last name."
 				},
 				phone: {
-					required: "Please enter your phone."
+					required: "Please enter your phone.",
+					number: "Please enter your valid phone."
 				},
 				password: {
 					required: "Please enter your password."
@@ -1694,59 +1744,59 @@
 	
 	/*--------------  Update Card Images --------------*/
 	
-	var pictureSourceCard;   // picture source
-	var destinationTypeCard; // sets the format of returned value
+	var pictureSourceCardTemplate;   // picture source
+	var destinationTypeCardTemplate; // sets the format of returned value
 
-	document.addEventListener("deviceready", onDeviceReadyCard, false);
+	document.addEventListener("deviceready", onDeviceReadyCardTemplate, false);
 
-	function onDeviceReadyCard() {
-	    pictureSourceCard   = navigator.camera.PictureSourceType;
-	    destinationTypeCard = navigator.camera.DestinationType;
+	function onDeviceReadyCardTemplate() {
+	    pictureSourceCardTemplate   = navigator.camera.PictureSourceType;
+	    destinationTypeCardTemplate = navigator.camera.DestinationType;
 	}
 
 	function clearCache() {
 	    navigator.camera.cleanup();
 	} 
 
-	var sPicDataCard; //store image data for image upload functionality
+	var sPicDataCardTemplate; //store image data for image upload functionality
 
 	function cardimagesPhoto(){
-	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
+	    navigator.camera.getPicture(picOnSuccessCardTemplate, picOnFailureCardTemplate, {
 	                                quality: 20,
-	                                destinationTypeCard: destinationTypeCard.FILE_URI,
-	                                sourceType: pictureSourceCard.CAMERA,
+	                                destinationTypeCardTemplate: destinationTypeCardTemplate.FILE_URI,
+	                                sourceType: pictureSourceCardTemplate.CAMERA,
 	                                correctOrientation: true
 	                                });
 	}
 
 	function cardimagesgetPhoto(){
-	    navigator.camera.getPicture(picOnSuccessCard, picOnFailureCard, {
+	    navigator.camera.getPicture(picOnSuccessCardTemplate, picOnFailureCardTemplate, {
 	        quality: 20,
-	        destinationTypeCard: destinationTypeCard.FILE_URI,
-	        sourceType: pictureSourceCard.SAVEDPHOTOALBUM,
+	        destinationTypeCardTemplate: destinationTypeCardTemplate.FILE_URI,
+	        sourceType: pictureSourceCardTemplate.SAVEDPHOTOALBUM,
 	        correctOrientation: true
 	    });
 	}
 
-	function picOnSuccessCard(imageData){
+	function picOnSuccessCardTemplate(imageData){
 	
 	    var image = document.getElementById('cameraPicCard1');
 		image.src = imageData;
-	    sPicDataCard  = imageData; //store image data in a variable
+	    sPicDataCardTemplate  = imageData; //store image data in a variable
 		card_id_image = $('#card_id_image').val();
 		card_type_image = $('#card_type_image').val();
-		photoUploadCard(card_id_image,card_type_image);
+		photoUploadCardTemplate(card_id_image,card_type_image);
 	}
 
-	function picOnFailureCard(message){
+	function picOnFailureCardTemplate(message){
 	   showAlert('Image not uploaded because: ' + message);
 	}
 
 	// ----- upload image ------------
-	function photoUploadCard(card_id_image,card_type_image) {
+	function photoUploadCardTemplate(card_id_image,card_type_image) {
 	    var options = new FileUploadOptions();
 	    options.fileKey = "file";
-	    options.fileName = sPicDataCard.substr(sPicDataCard.lastIndexOf('/') + 1);
+	    options.fileName = sPicDataCardTemplate.substr(sPicDataCardTemplate.lastIndexOf('/') + 1);
 	    options.mimeType = "image/jpeg";
 	    options.chunkedMode = false;
 
@@ -1754,11 +1804,11 @@
 	    params.fileKey = "file";
 	    options.params = {}; // eig = params, if we need to send parameters to the server request
 	    ft = new FileTransfer();
-	    ft.upload(sPicDataCard, webservice_url+"update-card-image/"+card_id_image+'/'+card_type_image, wincard, failcard, options);
+	    ft.upload(sPicDataCardTemplate, webservice_url+"update-card-image/"+card_id_image+'/'+card_type_image, wincardtemplate, failcardtemplate, options);
 	}
 	
 
-	function wincard(r){
+	function wincardtemplate(r){
 		card_id_image = $('#card_id_image').val();
 		/*------------ Images upload -----------*/
 		message = (r.response)?r.response:'';
@@ -1766,7 +1816,7 @@
 		cartDetails(card_id_image);
 	}
 
-	function failcard(error){
+	function failcardtemplate(error){
 		message =  "An error has occurred: Code = " +error.code
 		showAlert(message);
 	}

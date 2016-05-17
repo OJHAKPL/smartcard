@@ -26,7 +26,7 @@ body, input, select, textarea, button, .ui-btn, div, h1, h2, h3, h4, h5, h6{
 .home-logo img{
 	border-radius: 66px;
     height: 125px;
-	max-width:55%;
+	max-width:80%;
 }
 .home-buttons ul > li a.ui-btn{
 	font-size:18px;
@@ -809,7 +809,7 @@ img.responsimg {
 
 #bg-card-rep{ background: rgba(0, 0, 0, 0) url(../images/AppBackground1.jpg) repeat scroll 0 0 / 100% 100%;}
 
-#view-profile, #edit-profile, #update-card, #card-link , #card-scroller, #card-details, #change-password{ background: rgba(0, 0, 0, 0) url(../images/AppBackground1.jpg) repeat scroll 0 0 / 100% 100%;}
+#view-profile, #edit-profile, #update-card, #card-link , #card-scroller, #card-details, #change-password, #card-templates-list, #paper-card-list{ background: rgba(0, 0, 0, 0) url(../images/AppBackground1.jpg) repeat scroll 0 0 / 100% 100%;}
 
 .padding-space {
   padding: 50px 25px 56px;
@@ -1146,15 +1146,21 @@ img.responsimg {
 }
 
 .card-templete {
-  background: #f0f6fd none repeat scroll 0 0;
-  box-shadow: 0 0 4px #839fb9;
+  /*background: #f0f6fd none repeat scroll 0 0;
+  box-shadow: 0 0 4px #839fb9;*/
   height: 160px; margin-bottom:12px;
 }
-
 .card-templete > img {
+	display: table;
+    height: 160px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+/*.card-templete > img {
     height: 160px;
     width: 100%;
-}
+}*/
 .temp-apply {
 	margin-top: -32px; text-align: right;
 }
