@@ -380,7 +380,7 @@
 	}
 
 	function fail(error){
-		message = "An error has occurred: Code = "+ error.code
+		message = "Not able to upload this image, please try another!";
 		showAlert(message);
 	}
 	
@@ -1387,7 +1387,7 @@
 	}
 
 	function failcard(error){
-		message =  "An error has occurred: Code = " +error.code
+		message = "Not able to upload this image, please try another!";
 		showAlert(message);
 	} 
 	
@@ -1817,7 +1817,7 @@
 	}
 
 	function failcardtemplate(error){
-		message =  "An error has occurred: Code = " +error.code
+		message = "Not able to upload this image, please try another!";
 		showAlert(message);
 	}
 	
