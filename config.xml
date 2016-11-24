@@ -40,6 +40,7 @@
 	 <plugin name="cordova-plugin-whitelist" version="1"/>
 	<plugin name="cordova-plugin-inappbrowser" spec="1.1.1" />
 	<plugin name="cordova-plugin-statusbar" spec="2.0.0" />
+	<plugin name="cordova-plugin-fcm" spec="1.1.5" />
 	<plugin name="nl.x-services.plugins.socialsharing" source="pgb" spec="4.3.8" />
 	<plugin name="nl.x-services.plugins.touchid" source="pgb" spec="1.0.0" />
 	<plugin name="org.apache.cordova.battery-status" source="pgb" spec="0.2.12" />
