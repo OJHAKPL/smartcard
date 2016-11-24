@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "48866309941",
+    "firebase_url": "https://smartcard-1297.firebaseio.com",
+    "project_id": "smartcard-1297",
+    "storage_bucket": "smartcard-1297.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48866309941:android:cd96c9c693d68e6f",
+        "android_client_info": {
+          "package_name": "com.girishas.smartcard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48866309941-pmejoeba3jla9hd3do01t0l5crh6ovs9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDq_Mv8H6G6qpRCU195cvBZ6LQ4pxzmic"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
