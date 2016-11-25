@@ -40,7 +40,7 @@
 	 <plugin name="cordova-plugin-whitelist" version="1"/>
 	<plugin name="cordova-plugin-inappbrowser" spec="1.1.1" />
 	<plugin name="cordova-plugin-statusbar" spec="2.0.0" />
-	<plugin name="cordova-plugin-fcm" spec="1.1.5" />
+	
 	<plugin name="org.apache.cordova.battery-status" source="npm"  />
 	<plugin name="org.apache.cordova.camera" source="npm"  />
 	<plugin name="org.apache.cordova.console" source="npm"  />
