@@ -316,7 +316,7 @@
 						} else {
 							localStorage.setItem('userid-2', field.id);
 						}
-						pushNotify_firebase();
+						pushNotify();
 						cardlist();
 					} else {
 						if(dataArray.error){
